@@ -1,0 +1,6 @@
+.activitybar{
+    flex: 0.2;
+    background-color: antiquewhite;
+    min-height: 100vh !important;
+    z-index: 100;
+}

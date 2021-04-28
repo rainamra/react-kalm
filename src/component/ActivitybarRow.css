@@ -1,0 +1,28 @@
+.activitybarRow {
+    display: flex;
+    align-items: center;
+}
+
+.activitybarRow_icon {
+    font-size: large;
+}
+
+.activitybarRow_title {
+    flex: 1;
+    margin-left: 10px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.activitybarRow:hover {
+    background-color: lightgray;
+    cursor: pointer;
+}
+
+.activitybarRow:hover > .activitybarRow_icon {
+    color: darkgray;
+}
+
+.activitybarRow:hover > .activitybarRow_title {
+    font-weight: bold;
+}
