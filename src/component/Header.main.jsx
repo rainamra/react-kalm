@@ -1,13 +1,29 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { Nav, Navbar, Form, Button, FormControl } from "react-bootstrap";
+import { Link, useHistory } from "react-router-dom";
+import { Nav, Navbar, NavDropdown } from "react-bootstrap";
+import { useAuth } from "../contexts/AuthContext"
 import './Header.main.css';
 
 function HeaderMain() {
+    const [error, setError] = useState("");
+    const { currentUser, logout }   = useAuth()
+    const history = useHistory()
+
+
+    async function handleLogout(){
+        setError("")
+
+        try {
+          await logout()
+          history.push("/login")
+        } catch {
+          setError("Failed to log out")
+        }
+      }
+
     return (
-    <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <Navbar.Brand href="#home">
+    <Navbar bg="dark" variant="dark">
+         <Navbar.Brand href="/">
             <img
             alt=""
             src="/logo.svg"
@@ -16,16 +32,23 @@ function HeaderMain() {
             className="d-inline-block align-top"
             />{' '}Kalm
         </Navbar.Brand>
-        <Navbar.Collapse id="responsive-navbar-nav">
-        <Nav className="mr-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#settings">Settings</Nav.Link>
-            <Nav.Link href="#feedback">Feedback</Nav.Link>
+        <Nav>
+            <Nav.Link href="/">Home</Nav.Link>
+        </Nav>
+        <Navbar.Toggle />
+        <Navbar.Collapse className="justify-content-end">
+        <Nav>
+        <NavDropdown title={currentUser.email} id="basic-nav-dropdown">
+                <NavDropdown.Item>
+                    <Link to="/update-profile" className="link">Profile</Link>
+                </NavDropdown.Item>
+                <NavDropdown.Item href="#action/3.1">Settings</NavDropdown.Item>
+                <NavDropdown.Item href="#action/3.1">Feedback</NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item onClick={handleLogout}>Log out</NavDropdown.Item>
+            </NavDropdown>
         </Nav>
         </Navbar.Collapse>
-        <Nav className="mr-auto">
-            <Nav.Link href="#profile">Profile</Nav.Link>
-        </Nav>
     </Navbar>
     );
 }

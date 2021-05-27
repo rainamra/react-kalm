@@ -1,24 +1,47 @@
-import React, { Fragment, useState } from "react";
-import { Link } from "react-router-dom";
-import { Form, Col, Row, Button, Container } from "react-bootstrap";
+import React, { useRef, useState } from "react";
+import { Form, Col, Row, Button, Container, Alert } from "react-bootstrap";
 import './LoginPage.css';
+import { useAuth } from "../contexts/AuthContext";
+import { Link, useHistory } from 'react-router-dom'
 
 import { GoogleLoginButton } from "react-social-login-buttons";
 
 
+
 function LoginPage() {
+  const emailRef = useRef();
+  const passwordRef = useRef();
+  const { login } = useAuth();
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const history = useHistory()
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+
+    try {
+      setError("");
+      setLoading(true);
+      await login(emailRef.current.value, passwordRef.current.value);
+      history.push("/")
+    } catch {
+      setError("Failed to log in");
+    }
+    setLoading(false);
+  }
+
   return (
     <Container>
       <Row className="justify-content-center margin-row">
         <h3>Welcome to {' '} <span className="font-weight-bold">Kalm</span></h3>
       </Row>
       <Row className="mt-2">
-            <Form className="login-form">
+            <Form className="login-form" onSubmit={handleSubmit}>
               <Form.Row>
                 <Col>
                 <Form.Group controlId="formBasicEmail">
                   <Form.Label>Email</Form.Label>
-                  <Form.Control type="email" placeholder="Enter email" />
+                  <Form.Control type="email" placeholder="Enter email" ref={emailRef}/>
                 </Form.Group>
                 </Col>
               </Form.Row>
@@ -26,7 +49,8 @@ function LoginPage() {
                 <Col>
                 <Form.Group controlId="formBasicPassword">
                   <Form.Label>Password</Form.Label>
-                  <Form.Control type="password" placeholder="Password" />
+                  <Form.Control type="password" placeholder="Password" ref={passwordRef}/>
+                  {error && <Alert variant="danger">{error}</Alert>}
                 </Form.Group>
                 </Col>
               </Form.Row>
@@ -39,7 +63,7 @@ function LoginPage() {
               </Form.Row>
               <Form.Row>
                 <Col>
-                <Button className="btn-block btn-color rounded-pill" variant="" type="submit">Sign in</Button>
+                <Button disabled={loading} className="btn-block btn-color rounded-pill" variant="" type="submit">Sign in</Button>
                 </Col>
               </Form.Row>
               <Form.Row>
@@ -52,10 +76,10 @@ function LoginPage() {
               </Form.Row>
               <Form.Row className="text-center mt-2">
                 <Col>
-                  <a href="#link2" action>forgot password</a>
+                  <Link to="/forgot-password">forgot Password?</Link>
                 </Col>
                 <Col>
-                  <a href="#link2" action>create an account</a>
+                  <Link to="/signup">create an account</Link>
                 </Col>
               </Form.Row>
             </Form>

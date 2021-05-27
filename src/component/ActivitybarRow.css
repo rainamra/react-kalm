@@ -1,28 +1,29 @@
 .activitybarRow {
     display: flex;
     align-items: center;
-}
-
-.activitybarRow_icon {
-    font-size: large;
+    color: antiquewhite;
 }
 
 .activitybarRow_title {
     flex: 1;
     margin-left: 10px;
     font-size: 12px;
-    font-weight: 500;
+    font-weight: bold;
+}
+
+.activitybarRow_status {
+    font-size: 10px;
+    font-weight: normal;
 }
 
 .activitybarRow:hover {
-    background-color: lightgray;
+    background: rgba(255, 255, 255, 0.2);
     cursor: pointer;
 }
 
-.activitybarRow:hover > .activitybarRow_icon {
-    color: darkgray;
-}
-
-.activitybarRow:hover > .activitybarRow_title {
-    font-weight: bold;
+.activitybar{
+    flex: 0.2;
+    background: #262626;
+    min-height: 100vh !important;
+    z-index: 100;
 }
