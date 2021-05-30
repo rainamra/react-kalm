@@ -1,12 +1,14 @@
-import React, { useRef, useState } from 'react'
+import React, { useState, useRef } from 'react'
 import CreatableSelect from 'react-select/creatable';
-import { InputGroup, FormControl, Button, Alert, Row, Col, Modal } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { InputGroup, FormControl, Form,  Button, Alert, Row, Col, Modal } from "react-bootstrap";
+import { Link, useHistory } from "react-router-dom";
 import DeleteIcon from '@material-ui/icons/Delete';
 import DoneIcon from '@material-ui/icons/Done';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import IconButton from '@material-ui/core/IconButton';
 import VideoSelection from "./VideoSelection";
+import { useAuth } from "../contexts/AuthContext"
+import { db } from '../firebase'
 
 function SaveModal(props) {
     return (
@@ -126,8 +128,10 @@ function CreateNewRoutinePage() {
         }
     ];
 
+    const titleRef = useRef();
+    const [routine, setRoutine] = useState('');
+    const [duration, setDuration] = useState('');
     const [routines, setRoutines ] = useState([]);
-    const [durations, setDurations ] = useState([]);
     const [inputs, setInputs ] = useState([]);
     const [error, setError] = useState('');
     const [tagInputValue, setTagInputValue] = useState('');
@@ -136,37 +140,74 @@ function CreateNewRoutinePage() {
     const [video, setVideo] = useState('');
     const [isSelected, setSelected] = useState(false);
     const [modalShow, setModalShow] = useState(false);
+    const { currentUser } = useAuth();
 
     const routineHandler = e =>
     {
-        setRoutines([...routines, {
-            id: routines.length,
-            activity: e.label,
-        }])
-        console.log(routines);
-        console.log(e.label)
+        setRoutine(e.label);
     }
 
-    const durationHandler = e =>
-    {
-        setDurations([...durations, {
-            id: durations.length,
-            minute: e.target.value,
-        }])
-        console.log(durations);
-        console.log(e.target.value)
+    async function saveHandler(e) {
+        e.preventDefault();
+
+        try {
+            setError('');
+            {routines.map(r => (
+            db.collection('users').doc(currentUser.uid).collection(titleRef.current.value).doc(`routine ${r.id}`).set({
+                activity: r.activity,
+                minutes: r.minutes
+            }).then(() => {
+                db.collection('users').doc(currentUser.uid).collection(titleRef.current.value).doc('video').set({
+                    link: video
+                })
+            })
+            ))}
+            setModalShow(true);
+        } catch {
+            setError("Failed to create a new routine");
+        }
+
     }
 
-    const newInputs = () =>
-    {
-        if (inputs.length < 5 ) {
+    const newInputs = e => {
+
+        setError("");
+
+        if (titleRef.current.value === "") {
+            return setError("Please name your series of routine");
+          }
+
+        if (inputs.length < 5 && inputs.length === 0 ) {
             setInputs([...inputs, {
                 id: inputs.length,
                 number: inputs.length+1,
             }])
-        } else {
-            setError("Maximum number of routine is 5");
+            console.log(routines);
         }
+        else if (inputs.length > 0 && inputs.length < 5) {
+            setRoutines([...routines, {
+                    id: routines.length,
+                    activity: routine,
+                    minutes: duration
+                }])
+            console.log(routines);
+
+            setInputs([...inputs, {
+                id: inputs.length,
+                number: inputs.length+1,
+            }])
+        }
+        else if (inputs.length < 6) {
+            setRoutines([...routines, {
+                    id: routines.length,
+                    activity: routine,
+                    minutes: duration
+                }])
+            console.log(routines);
+        }
+
+        setRoutine('');
+        setDuration('');
     }
 
     const handleKeyDown = event => {
@@ -202,29 +243,30 @@ function CreateNewRoutinePage() {
 
     const nextButton = () =>
     {
-        if (inputs.length > 2 ) {
-           return <Button className="rounded-pill" type="submit" onClick={() => {setVideos(true);}}>Done</Button>
+        if (routines.length === 5 ) {
+           return <Button className="rounded-pill" type="submit" onClick={() => {setVideos(true)}}>Done</Button>
         }
     }
 
     const saveButton = () =>
     {
         if (video.length > 0 ) {
-           return <Button className="rounded-pill" type="submit" onClick={() => setModalShow(true)}>Save</Button>
+           return <Button className="rounded-pill" type="submit" onClick={saveHandler}>Save</Button>
         }
     }
 
     function deleteInputs(id) {
         const newInputs = inputs.filter((input) => input.id !== id);
         setInputs(newInputs);
-        setError('');
 
         deleteRoutine(id);
     }
 
     function deleteRoutine(id) {
+        console.log(routines);
         const newRoutines = routines.filter((r) => r.id !== id);
         setRoutines(newRoutines);
+        console.log(routines);
     }
 
     function videoHandler(videoLink) {
@@ -234,7 +276,6 @@ function CreateNewRoutinePage() {
         setSelected(true);
     }
 
-
     const VideoSelections = () => {
         return (
         <>
@@ -243,7 +284,7 @@ function CreateNewRoutinePage() {
             {
                 videolist.map(v => {
                     return (
-                        <div className="video-container w-25 m-3" onClick={() => videoHandler(v.link)}>
+                        <div className="video-container w-25 m-3" onClick={e => {e.preventDefault(); videoHandler(v.link);}}>
                         <VideoSelection youtubeURL={v.link} theme={v.title} description={v.desc} status={v.link === video ? isSelected : null}/>
                         </div>
                     )
@@ -257,10 +298,22 @@ function CreateNewRoutinePage() {
         <>
             <h2 className="text-center mt-5 mb-5">Create Your Night Routine</h2>
             <div className="row justify-content-center">
-            {startButton()}
+                <Row className="option w-50 mt-3 align-items-center">
+                    <Col className="text-muted" md="1">
+                    <h3>
+                    Title
+                    </h3>
+                    </Col>
+                    <Col md="10">
+                    <Form.Control type="text" placeholder="Name your series of routine here..." ref={titleRef}/>
+                    </Col>
+                </Row>
             </div>
             <div className="options row justify-content-center">
-                {error && <Alert variant="danger">{error}</Alert>}
+                {error && <Alert variant="danger" className="mt-5">{error}</Alert>}
+            </div>
+            <div className="row justify-content-center">
+            {startButton()}
             </div>
             {
                 inputs.map(input => {
@@ -275,23 +328,18 @@ function CreateNewRoutinePage() {
                                     options={routinelist}
                                     onChange={routineHandler}
                                     placeholder= "Select a routine"
-                                    isDisabled={input.id+1 !== inputs.length}
+                                    isDisabled={input.id+1 !== inputs.length || routines.length === 5}
                                     onKeyDown={handleKeyDown}
                                     onInputChange={handleInputChange}
                                     />
-                                    <ul>
-                                        {routines.map(r => (
-                                            <li key={r.id}>{r.activity}</li>
-                                    ))}
-                                    </ul>
+                                    <br/>
                                     <InputGroup className="mb-3">
                                         <FormControl
                                         placeholder="Duration"
                                         aria-label="Default"
                                         aria-describedby="inputGroup-sizing-default"
-                                        onChange={durationHandler}
-                                        value={durations.minute}
-                                        disabled={input.id+1 !== inputs.length}
+                                        onChange={e => setDuration(e.target.value)}
+                                        disabled={input.id+1 !== inputs.length || routines.length === 5}
                                         />
                                         <InputGroup.Prepend>
                                         <InputGroup.Text id="inputGroup-sizing-default">Minutes</InputGroup.Text>
@@ -299,7 +347,7 @@ function CreateNewRoutinePage() {
                                     </InputGroup>
                                 </Col>
                                 <Col md="1">
-                                <IconButton color="primary" onClick={newInputs} disabled={input.id+1 !== inputs.length}>
+                                <IconButton color="primary" onClick={newInputs} disabled={input.id+1 !== inputs.length || routines.length === 5}>
                                     <DoneIcon fontSize="large"/>
                                 </IconButton>
                                 <IconButton color="primary" disabled={input.id+1 !== inputs.length} onClick={() => deleteInputs(input.id)}>

@@ -1,7 +1,8 @@
-import React, { useRef, useState } from "react"
-import { Form, Button, Card, Alert, Row, Image, Col, Container} from "react-bootstrap"
+import React, { useRef, useState, useEffect } from "react"
+import { Form, Button, Card, Alert, Row, Image, Col } from "react-bootstrap"
 import { useAuth } from "../contexts/AuthContext"
-import { Link, useHistory } from "react-router-dom"
+import { useHistory } from "react-router-dom"
+import { db } from '../firebase'
 
 export default function UpdateProfile() {
     const emailRef = useRef()
@@ -11,6 +12,7 @@ export default function UpdateProfile() {
     const [error, setError] = useState("")
     const [loading, setLoading] = useState(false)
     const history = useHistory()
+    const [username, setUsername] = useState("");
 
     function handleSubmit(e) {
       e.preventDefault()
@@ -41,16 +43,26 @@ export default function UpdateProfile() {
         })
     }
 
+    useEffect(() => {
+      const getUsername =  db.collection('users').doc(currentUser.uid).get().then(doc => {
+          setUsername(doc.data().username)
+      })
+
+      return getUsername
+    }, [])
+
+
     return (
       <>
       <div>
-      <Row className="profile p-5 justify-content-lg-center">
+      <Row className="profile p-5 mt-5 justify-content-lg-center">
         <Col lg="4">
         <Image src="holder.js/171x180" roundedCircle />
         </Col>
         <Col lg="4">
         <h5>PROFILE</h5>
-        <h2>{currentUser.email}</h2>
+        <h2>{username}</h2>
+        {/* <h4>{currentUser.email}</h4> */}
         <p>2 Night Routines</p>
         </Col>
       </Row>

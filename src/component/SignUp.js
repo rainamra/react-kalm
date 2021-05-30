@@ -8,6 +8,9 @@ export default function SignUp() {
   const emailRef = useRef();
   const passwordRef = useRef();
   const passwordConfirmRef = useRef();
+  const [firstname, setFirstName] = useState("");
+  const [lastname, setLastName] = useState("");
+  const [username, setUsername] = useState("");
   const { signup } = useAuth();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -23,7 +26,7 @@ export default function SignUp() {
     try {
       setError("");
       setLoading(true);
-      await signup(emailRef.current.value, passwordRef.current.value);
+      await signup(emailRef.current.value, passwordRef.current.value, username, firstname + " " + lastname);
       history.push("/")
     } catch {
       setError("Failed to create an account");
@@ -42,13 +45,13 @@ export default function SignUp() {
             <Col>
               <Form.Group>
                 <Form.Label>First name</Form.Label>
-                <Form.Control placeholder="First name" />
+                <Form.Control type="text" placeholder="First name" onChange={e => setFirstName(e.target.value)}/>
               </Form.Group>
             </Col>
             <Col>
               <Form.Group>
                 <Form.Label>Last name</Form.Label>
-                <Form.Control placeholder="Last name" />
+                <Form.Control type="text" placeholder="Last name" onChange={e => setLastName(e.target.value)}/>
               </Form.Group>
             </Col>
             <Col>
@@ -58,7 +61,7 @@ export default function SignUp() {
                   <InputGroup.Prepend>
                     <InputGroup.Text id="inputGroupPrepend">@</InputGroup.Text>
                   </InputGroup.Prepend>
-                  <Form.Control type="text" placeholder="Username" aria-describedby="inputGroupPrepend" />
+                  <Form.Control type="text" placeholder="Username" onChange={e => setUsername(e.target.value)} aria-describedby="inputGroupPrepend" />
                 </InputGroup>
               </Form.Group>
             </Col>
