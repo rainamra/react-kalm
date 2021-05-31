@@ -137,7 +137,7 @@ function CreateNewRoutinePage() {
     const [tagInputValue, setTagInputValue] = useState('');
     const [tagValue, setTagValue] = useState('');
     const [videos, setVideos] = useState(false);
-    const [video, setVideo] = useState('');
+    const [video, setVideo] = useState([]);
     const [isSelected, setSelected] = useState(false);
     const [modalShow, setModalShow] = useState(false);
     const { currentUser } = useAuth();
@@ -151,13 +151,39 @@ function CreateNewRoutinePage() {
         e.preventDefault();
 
         try {
+
+            const totalDuration = Number(routines[0].minutes) + Number(routines[1].minutes) + Number(routines[2].minutes) + Number(routines[3].minutes) + Number(routines[4].minutes);
+            console.log(totalDuration);
             setError('');
-            db.collection('users').doc(currentUser.uid).collection('Routines').doc(titleRef.current.value).set(Object.assign({}, routines)).then(() => {
+                await db.collection('users').doc(currentUser.uid).collection('Routines').doc(titleRef.current.value).set({
+                        routine1: {
+                            activity: routines[0].activity,
+                            minutes: routines[0].minutes
+                        },
+                        routine2: {
+                            activity: routines[1].activity,
+                            minutes: routines[1].minutes
+                        },
+                        routine3: {
+                            activity: routines[2].activity,
+                            minutes: routines[2].minutes
+                        },
+                        routine4: {
+                            activity: routines[3].activity,
+                            minutes: routines[3].minutes
+                        },
+                        routine5: {
+                            activity: routines[4].activity,
+                            minutes: routines[4].minutes
+                        }
+                }).then(() => {
                 db.collection('users').doc(currentUser.uid).collection('Routines').doc(titleRef.current.value).set({
                     video: {
-                        id: 5,
-                        link: video
-                    }
+                        title: video[0].title,
+                        link: video[0].link,
+                        minutes: 20
+                    },
+                    totalDuration: totalDuration + 20
                 }, { merge: true })
             })
             setModalShow(true);
@@ -181,6 +207,7 @@ function CreateNewRoutinePage() {
                 number: inputs.length+1,
             }])
             console.log(routines);
+
         }
         else if (inputs.length > 0 && inputs.length < 5) {
             setRoutines([...routines, {
@@ -201,7 +228,7 @@ function CreateNewRoutinePage() {
                     activity: routine,
                     minutes: duration
                 }])
-            console.log(routines);
+            console.log(routines[0].activity);
         }
 
         setRoutine('');
@@ -267,8 +294,12 @@ function CreateNewRoutinePage() {
         console.log(routines);
     }
 
-    function videoHandler(videoLink) {
-        setVideo(videoLink);
+    function videoHandler(videoLink, videoTitle) {
+        setVideo([
+            {
+                title: videoTitle,
+                link: videoLink
+            }]);
         console.log(video);
         console.log(videoLink);
         setSelected(true);
@@ -282,7 +313,7 @@ function CreateNewRoutinePage() {
             {
                 videolist.map(v => {
                     return (
-                        <div className="video-container w-25 m-3" onClick={e => {e.preventDefault(); videoHandler(v.link);}}>
+                        <div className="video-container w-25 m-3" onClick={e => {e.preventDefault(); videoHandler(v.link, v.title);}}>
                         <VideoSelection youtubeURL={v.link} theme={v.title} description={v.desc} status={v.link === video ? isSelected : null}/>
                         </div>
                     )

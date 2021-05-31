@@ -4,43 +4,8 @@ import { Link } from "react-router-dom";
 import './TemplateRoutine.css';
 import './RoutineCard';
 import RoutineCard from "./RoutineCard";
-// import { db } from "../firebase";
-// import { useAuth } from "../contexts/AuthContext"
-
-function List(props) {
-    return props.routines.split(", ").map(str => <li>{str}</li>)
-}
-
-function CustomRoutineModal(props) {
-    return (
-    <Modal
-    {...props}
-    size="md"
-    aria-labelledby="contained-modal-title-vcenter"
-    centered
-    >
-    <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
-            Let's start your Night Routine!
-        </Modal.Title>
-    </Modal.Header>
-    <Modal.Body>
-        <h4>Chill Night</h4>
-        <p>Duration:</p>
-        <p>Description:</p>
-        <p>
-        Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-        dapibus ac facilisis in, egestas eget quam.
-        </p>
-    </Modal.Body>
-    <Modal.Footer>
-        <Button onClick={props.onHide}>
-            <Link to="/ongoing-routine" className="link">Start</Link>
-        </Button>
-    </Modal.Footer>
-    </Modal>
-);
-}
+import { db } from "../firebase";
+import { useAuth } from "../contexts/AuthContext"
 
 function TemplateRoutineModal(props) {
     return (
@@ -112,13 +77,52 @@ function TemplateRoutine() {
     const [templateModalShow, setTemplateModalShow] = useState(false);
     const [customModalShow, setCustomModalShow] = useState(false);
     const [createNewModalShow, setCreateNewModalShow] = useState(false);
-    // const [routineCards, setRoutineCards] = useState([]);
-    // const { currentUser, getTitle } = useAuth();
+    const [routineCards, setRoutineCards] = useState([]);
+    const [modalTitle, setModalTitle] = useState('');
+    const [modalDuration, setModalDuration] = useState('');
+    const [modalDesc, setModalDesc] = useState('');
 
-    // useEffect(() => {
-    //     setRoutineCards(getTitle);
-    // }, [])
 
+    const { currentUser } = useAuth();
+
+
+    // db.collection('users').doc(currentUser.uid).collection('Routines').doc(titleRef.current.value).collection(`routine ${r.id}`).doc(`${r.id}`)
+    useEffect(() => {
+        db.collection('users').doc(currentUser.uid).collection('Routines').onSnapshot(snapshot => (
+            setRoutineCards(snapshot.docs.map((doc) => ({id: doc.id, ...doc.data()})))
+        ))
+    }, [])
+
+    function CustomRoutineModal(props) {
+        return (
+        <Modal
+        {...props}
+        size="md"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+        >
+        <Modal.Header closeButton>
+            <Modal.Title id="contained-modal-title-vcenter">
+                Let's start your Night Routine!
+            </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+            <h4>{modalTitle}</h4>
+            <p>Duration:</p>
+            <p>Description:</p>
+            <p>
+            Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
+            dapibus ac facilisis in, egestas eget quam.
+            </p>
+        </Modal.Body>
+        <Modal.Footer>
+            <Button onClick={props.onHide}>
+                <Link to="/ongoing-routine" className="link">Start</Link>
+            </Button>
+        </Modal.Footer>
+        </Modal>
+    );
+    }
 
     return (
         <div className="template-routine">
@@ -143,24 +147,18 @@ function TemplateRoutine() {
             </div>
             <h2>Your Night Routine</h2>
             <div className="routineCards customs">
-                {/* {routineCards.map(({id}) =>
-                    <div className="custom" onClick={() => setCustomModalShow(true)}>
-                        <RoutineCard image="https://i.postimg.cc/P5Gxsphw/kilarov-zaneit-1-Mqa-Cfb-FGCs-unsplash.jpg" title={id}/>
-                        <List routines={'Line one, Line two, Line three'}/>
+                {routineCards.map(card => (
+                    <div className="custom" onClick={() => {setCustomModalShow(true); setModalTitle(card.id)}}>
+                        <RoutineCard image="https://i.postimg.cc/P5Gxsphw/kilarov-zaneit-1-Mqa-Cfb-FGCs-unsplash.jpg" title={card.id}/>
+                        <ul>
+                        <li>{card.routine1.activity}</li>
+                        <li>{card.routine2.activity}</li>
+                        <li>{card.routine3.activity}</li>
+                        <li>{card.routine4.activity}</li>
+                        <li>{card.routine5.activity}</li>
+                        </ul>
                     </div>
-                )} */}
-                {/* <div className="custom" onClick={() => setCustomModalShow(true)}>
-                    <RoutineCard image="https://i.postimg.cc/P5Gxsphw/kilarov-zaneit-1-Mqa-Cfb-FGCs-unsplash.jpg" title="Chill Nights"/>
-                    <List routines={'Line one, Line two, Line three'}/>
-                </div>
-                <div className="custom" onClick={() => setCustomModalShow(true)}>
-                    <RoutineCard image="https://i.postimg.cc/P5Gxsphw/kilarov-zaneit-1-Mqa-Cfb-FGCs-unsplash.jpg" title="Chill Nights"/>
-                    <List routines={'Line one, Line two, Line three'}/>
-                </div>
-                <div className="custom" onClick={() => setCustomModalShow(true)}>
-                    <RoutineCard image="https://i.postimg.cc/P5Gxsphw/kilarov-zaneit-1-Mqa-Cfb-FGCs-unsplash.jpg" title="Chill Nights"/>
-                    <List routines={'Line one, Line two, Line three'}/>
-                </div> */}
+                ))}
                 <CustomRoutineModal
                     show={customModalShow}
                     onHide={() => setCustomModalShow(false)}
