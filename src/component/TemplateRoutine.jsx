@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Modal, Button, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import './TemplateRoutine.css';
 import './RoutineCard';
 import RoutineCard from "./RoutineCard";
+// import { db } from "../firebase";
+// import { useAuth } from "../contexts/AuthContext"
 
 function List(props) {
     return props.routines.split(", ").map(str => <li>{str}</li>)
@@ -110,6 +112,13 @@ function TemplateRoutine() {
     const [templateModalShow, setTemplateModalShow] = useState(false);
     const [customModalShow, setCustomModalShow] = useState(false);
     const [createNewModalShow, setCreateNewModalShow] = useState(false);
+    // const [routineCards, setRoutineCards] = useState([]);
+    // const { currentUser, getTitle } = useAuth();
+
+    // useEffect(() => {
+    //     setRoutineCards(getTitle);
+    // }, [])
+
 
     return (
         <div className="template-routine">
@@ -134,7 +143,13 @@ function TemplateRoutine() {
             </div>
             <h2>Your Night Routine</h2>
             <div className="routineCards customs">
-                <div className="custom" onClick={() => setCustomModalShow(true)}>
+                {/* {routineCards.map(({id}) =>
+                    <div className="custom" onClick={() => setCustomModalShow(true)}>
+                        <RoutineCard image="https://i.postimg.cc/P5Gxsphw/kilarov-zaneit-1-Mqa-Cfb-FGCs-unsplash.jpg" title={id}/>
+                        <List routines={'Line one, Line two, Line three'}/>
+                    </div>
+                )} */}
+                {/* <div className="custom" onClick={() => setCustomModalShow(true)}>
                     <RoutineCard image="https://i.postimg.cc/P5Gxsphw/kilarov-zaneit-1-Mqa-Cfb-FGCs-unsplash.jpg" title="Chill Nights"/>
                     <List routines={'Line one, Line two, Line three'}/>
                 </div>
@@ -145,7 +160,7 @@ function TemplateRoutine() {
                 <div className="custom" onClick={() => setCustomModalShow(true)}>
                     <RoutineCard image="https://i.postimg.cc/P5Gxsphw/kilarov-zaneit-1-Mqa-Cfb-FGCs-unsplash.jpg" title="Chill Nights"/>
                     <List routines={'Line one, Line two, Line three'}/>
-                </div>
+                </div> */}
                 <CustomRoutineModal
                     show={customModalShow}
                     onHide={() => setCustomModalShow(false)}

@@ -152,16 +152,14 @@ function CreateNewRoutinePage() {
 
         try {
             setError('');
-            {routines.map(r => (
-            db.collection('users').doc(currentUser.uid).collection(titleRef.current.value).doc(`routine ${r.id}`).set({
-                activity: r.activity,
-                minutes: r.minutes
-            }).then(() => {
-                db.collection('users').doc(currentUser.uid).collection(titleRef.current.value).doc('video').set({
-                    link: video
-                })
+            db.collection('users').doc(currentUser.uid).collection('Routines').doc(titleRef.current.value).set(Object.assign({}, routines)).then(() => {
+                db.collection('users').doc(currentUser.uid).collection('Routines').doc(titleRef.current.value).set({
+                    video: {
+                        id: 5,
+                        link: video
+                    }
+                }, { merge: true })
             })
-            ))}
             setModalShow(true);
         } catch {
             setError("Failed to create a new routine");

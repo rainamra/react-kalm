@@ -11,6 +11,7 @@ export function useAuth() {
 export default function AuthProvider({ children }) {
     const [currentUser, setCurrentUser] = useState()
     const [loading, setLoading] = useState(true)
+    const [routineCards, setRoutineCards] = useState([]);
 
     function signup(email, password, userName, fullName) {
         return auth.createUserWithEmailAndPassword(email, password).then(cred => {
@@ -21,6 +22,13 @@ export default function AuthProvider({ children }) {
             });
         })
     }
+
+    // function getTitle() {
+    //     db.collection('users').doc(currentUser.uid).getCollection().then(collection => (
+    //       setRoutineCards(collection.id)
+    //   ))
+    //   return routineCards;
+    // }
 
     function login(email, password) {
         return auth.signInWithEmailAndPassword(email, password)
@@ -58,7 +66,8 @@ export default function AuthProvider({ children }) {
         logout,
         updatePassword,
         resetPassword,
-        updateEmail
+        updateEmail,
+        // getTitle
     }
 
     return (

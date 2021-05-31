@@ -33,7 +33,7 @@ function HeaderMain() {
 
     return (
     <Navbar bg="dark" variant="dark" fixed="top">
-         <Navbar.Brand href="/">
+         {/* <Navbar.Brand href="/">
             <img
             alt=""
             src="/logo.svg"
@@ -41,7 +41,7 @@ function HeaderMain() {
             height="30"
             className="d-inline-block align-top"
             />{' '}Kalm
-        </Navbar.Brand>
+        </Navbar.Brand> */}
         <Nav>
             <Nav.Link href="/">Home</Nav.Link>
         </Nav>
@@ -53,7 +53,7 @@ function HeaderMain() {
             <NavDropdown.Item>
                 <Link to="/update-profile" className="link">Profile</Link>
             </NavDropdown.Item>
-            <NavDropdown.Item href="#action/3.1">Settings</NavDropdown.Item>
+            <NavDropdown.Item >Settings</NavDropdown.Item>
             <NavDropdown.Item href="#action/3.1">Feedback</NavDropdown.Item>
             <NavDropdown.Divider />
             <NavDropdown.Item onClick={handleLogout}>Log out</NavDropdown.Item>
