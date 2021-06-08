@@ -1,14 +1,14 @@
 import React, { useState, useRef } from 'react'
 import CreatableSelect from 'react-select/creatable';
 import { InputGroup, FormControl, Form,  Button, Alert, Row, Col, Modal } from "react-bootstrap";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import DeleteIcon from '@material-ui/icons/Delete';
 import DoneIcon from '@material-ui/icons/Done';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import IconButton from '@material-ui/core/IconButton';
 import VideoSelection from "./VideoSelection";
 import { useAuth } from "../contexts/AuthContext"
-import { db } from '../firebase'
+import { db, storage } from '../firebase'
 
 function SaveModal(props) {
     return (
@@ -129,6 +129,7 @@ function CreateNewRoutinePage() {
     ];
 
     const titleRef = useRef();
+    const descRef = useRef();
     const [routine, setRoutine] = useState('');
     const [duration, setDuration] = useState('');
     const [routines, setRoutines ] = useState([]);
@@ -140,6 +141,8 @@ function CreateNewRoutinePage() {
     const [video, setVideo] = useState([]);
     const [isSelected, setSelected] = useState(false);
     const [modalShow, setModalShow] = useState(false);
+    const [picture, setPicture] = useState(null);
+    const [pictureUrl, setPictureUrl] = useState("");
     const { currentUser } = useAuth();
 
     const routineHandler = e =>
@@ -151,46 +154,61 @@ function CreateNewRoutinePage() {
         e.preventDefault();
 
         try {
-
-            const totalDuration = Number(routines[0].minutes) + Number(routines[1].minutes) + Number(routines[2].minutes) + Number(routines[3].minutes) + Number(routines[4].minutes);
-            console.log(totalDuration);
-            setError('');
-                await db.collection('users').doc(currentUser.uid).collection('Routines').doc(titleRef.current.value).set({
-                        routine1: {
-                            activity: routines[0].activity,
-                            minutes: routines[0].minutes
-                        },
-                        routine2: {
-                            activity: routines[1].activity,
-                            minutes: routines[1].minutes
-                        },
-                        routine3: {
-                            activity: routines[2].activity,
-                            minutes: routines[2].minutes
-                        },
-                        routine4: {
-                            activity: routines[3].activity,
-                            minutes: routines[3].minutes
-                        },
-                        routine5: {
-                            activity: routines[4].activity,
-                            minutes: routines[4].minutes
-                        }
-                }).then(() => {
-                db.collection('users').doc(currentUser.uid).collection('Routines').doc(titleRef.current.value).set({
-                    video: {
-                        title: video[0].title,
-                        link: video[0].link,
-                        minutes: 20
-                    },
-                    totalDuration: totalDuration + 20
-                }, { merge: true })
-            })
-            setModalShow(true);
+            if(picture) {
+                const storageRef = storage.ref('profile');
+                const imageRef = storageRef.child(picture.name);
+                imageRef.put(picture)
+                .then(() => {
+                    storage.ref('profile').child(picture.name).getDownloadURL().then(url => {
+                        const totalDuration = Number(routines[0].minutes) + Number(routines[1].minutes) + Number(routines[2].minutes) + Number(routines[3].minutes) + Number(routines[4].minutes);
+                        console.log(totalDuration);
+                        setError('');
+                                db.collection('users').doc(currentUser.uid).collection('Routines').doc(titleRef.current.value).set({
+                                imgURL: url,
+                                description: descRef.current.value,
+                                routine1: {
+                                    activity: routines[0].activity,
+                                    minutes: routines[0].minutes
+                                },
+                                routine2: {
+                                    activity: routines[1].activity,
+                                    minutes: routines[1].minutes
+                                },
+                                routine3: {
+                                    activity: routines[2].activity,
+                                    minutes: routines[2].minutes
+                                },
+                                routine4: {
+                                    activity: routines[3].activity,
+                                    minutes: routines[3].minutes
+                                },
+                                routine5: {
+                                    activity: routines[4].activity,
+                                    minutes: routines[4].minutes
+                                }
+                            }).then(() => {
+                            db.collection('users').doc(currentUser.uid).collection('Routines').doc(titleRef.current.value).set({
+                                video: {
+                                    title: video[0].title,
+                                    link: video[0].link,
+                                    minutes: 20
+                                },
+                                totalDuration: totalDuration + 20
+                            }, { merge: true })
+                        })
+                        .then(() => {
+                            setPictureUrl("")
+                            alert("Image uploaded successfully to Firebase.");
+                        })
+                        setModalShow(true);
+                    })
+                })
+            } else {
+                alert("Please upload an image first.");
+            }
         } catch {
             setError("Failed to create a new routine");
         }
-
     }
 
     const newInputs = e => {
@@ -200,6 +218,10 @@ function CreateNewRoutinePage() {
         if (titleRef.current.value === "") {
             return setError("Please name your series of routine");
           }
+
+        if (descRef.current.value === "") {
+        return setError("Please fill the description");
+        }
 
         if (inputs.length < 5 && inputs.length === 0 ) {
             setInputs([...inputs, {
@@ -323,6 +345,22 @@ function CreateNewRoutinePage() {
         </>
     )}
 
+    const onImageChange = (e) => {
+        const reader = new FileReader();
+        let file = e.target.files[0];
+        if (file) {
+          reader.onload = () => {
+            if (reader.readyState === 2) {
+              console.log(file);
+              setPicture(file);
+            }
+          };
+          reader.readAsDataURL(e.target.files[0]);
+        } else {
+          setPicture(null);
+        }
+      };
+
     return (
         <>
             <h2 className="text-center mt-5 mb-5">Create Your Night Routine</h2>
@@ -337,6 +375,33 @@ function CreateNewRoutinePage() {
                     <Form.Control type="text" placeholder="Name your series of routine here..." ref={titleRef}/>
                     </Col>
                 </Row>
+            </div>
+            <div className="row justify-content-center">
+            <Row className="option w-50 mt-3 align-items-center">
+                    <Col className="text-muted" md="1">
+                    <h3>
+                    Desc
+                    </h3>
+                    </Col>
+                    <Col md="10">
+                    <Form.Control type="text" placeholder="Add description to make the routine more personalized" ref={descRef}/>
+                    </Col>
+                </Row>
+            </div>
+            <div className="row justify-content-center">
+            <Row className="option w-50 mt-3 align-items-center">
+                <Col className="text-muted" md="1">
+                    <h4>
+                    Cover
+                    </h4>
+                    </Col>
+                    <Col md="10">
+                    <Form.File id="exampleFormControlFile1"
+                    type="file"
+                    onChange={(e) => {onImageChange(e);}}/>
+                    </Col>
+
+            </Row>
             </div>
             <div className="options row justify-content-center">
                 {error && <Alert variant="danger" className="mt-5">{error}</Alert>}

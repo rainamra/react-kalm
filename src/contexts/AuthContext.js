@@ -11,7 +11,6 @@ export function useAuth() {
 export default function AuthProvider({ children }) {
     const [currentUser, setCurrentUser] = useState()
     const [loading, setLoading] = useState(true)
-    const [routineCards, setRoutineCards] = useState([]);
 
     function signup(email, password, userName, fullName) {
         return auth.createUserWithEmailAndPassword(email, password).then(cred => {
@@ -19,16 +18,10 @@ export default function AuthProvider({ children }) {
                 name: fullName,
                 username: userName,
                 email: email,
+                imgURL: "https://firebasestorage.googleapis.com/v0/b/kalm-react.appspot.com/o/profile%2Favatar.png?alt=media&token=5f7292c3-1c40-4593-a585-26dd35018151"
             });
         })
     }
-
-    // function getTitle() {
-    //     db.collection('users').doc(currentUser.uid).getCollection().then(collection => (
-    //       setRoutineCards(collection.id)
-    //   ))
-    //   return routineCards;
-    // }
 
     function login(email, password) {
         return auth.signInWithEmailAndPassword(email, password)
@@ -67,7 +60,6 @@ export default function AuthProvider({ children }) {
         updatePassword,
         resetPassword,
         updateEmail,
-        // getTitle
     }
 
     return (

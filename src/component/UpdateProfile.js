@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from "react"
 import { Form, Button, Card, Alert, Row, Image, Col } from "react-bootstrap"
 import { useAuth } from "../contexts/AuthContext"
 import { useHistory } from "react-router-dom"
-import { db } from '../firebase'
+import { db, storage } from '../firebase'
 
 export default function UpdateProfile() {
     const emailRef = useRef()
@@ -13,6 +13,10 @@ export default function UpdateProfile() {
     const [loading, setLoading] = useState(false)
     const history = useHistory()
     const [username, setUsername] = useState("");
+    const [name, setName] = useState("");
+    const [picture, setPicture] = useState(null);
+    const [pictureUrl, setPictureUrl] = useState("");
+    const [currentPicture, setCurrentPicture] = useState("");
 
     function handleSubmit(e) {
       e.preventDefault()
@@ -30,6 +34,9 @@ export default function UpdateProfile() {
       if (passwordRef.current.value) {
         promises.push(updatePassword(passwordRef.current.value))
       }
+      if (picture !== "") {
+        promises.push(uploadToFirebase())
+      }
 
       Promise.all(promises)
         .then(() => {
@@ -44,26 +51,74 @@ export default function UpdateProfile() {
     }
 
     useEffect(() => {
-      const getUsername =  db.collection('users').doc(currentUser.uid).get().then(doc => {
-          setUsername(doc.data().username)
+      db.collection('users').doc(currentUser.uid).get().then(doc => {
+          setUsername(doc.data().username);
+          setName(doc.data().name);
+          setCurrentPicture(doc.data().imgURL);
       })
-
-      return getUsername
     }, [])
 
+    const uploadToFirebase = () => {
+      if (picture) {
+        const storageRef = storage.ref('profile');
+        const imageRef = storageRef.child(picture.name);
+        imageRef.put(picture)
+       .then(() => {
+        storage.ref('profile').child(picture.name).getDownloadURL().then(url => {
+                db.collection('users').doc(currentUser.uid).set({
+                  name: name,
+                  username: username,
+                  email: currentUser.email,
+                  imgURL: url
+                })
+                .then(() => {
+                  setPictureUrl("")
+                }, { merge: true })
+            })
+            .then(() => {
+            alert("Image uploaded successfully to Firebase.");
+            })
+      })
+      } else {
+        alert("Please upload an image first.");
+      }
+    };
+
+    const onImageChange = (e) => {
+      const reader = new FileReader();
+      let file = e.target.files[0];
+      if (file) {
+        reader.onload = () => {
+          if (reader.readyState === 2) {
+            console.log(file);
+            setPicture(file);
+          }
+        };
+        reader.readAsDataURL(e.target.files[0]);
+      } else {
+        setPicture(null);
+      }
+    };
 
     return (
       <>
       <div>
       <Row className="profile p-5 mt-5 justify-content-lg-center">
-        <Col lg="4">
-        <Image src="holder.js/171x180" roundedCircle />
+        <Col lg="2">
+        <Image  width="200px" height="200px"
+        src={currentPicture} roundedCircle />
         </Col>
-        <Col lg="4">
+        <Col lg="6 mt-4">
         <h5>PROFILE</h5>
         <h2>{username}</h2>
-        {/* <h4>{currentUser.email}</h4> */}
         <p>2 Night Routines</p>
+        <Form>
+          <Form.Group>
+            <Form.File id="exampleFormControlFile1"
+            type="file"
+            onChange={(e) => {onImageChange(e);}}/>
+          </Form.Group>
+        </Form>
         </Col>
       </Row>
       <Row className="update-profile justify-content-lg-center">

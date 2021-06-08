@@ -5,10 +5,11 @@ import './LandingPage.css';
 
 function LandingPage() {
   return (
-      <Container>
+    <>
   <Navbar collapseOnSelect bg="transparent" expand="lg" variant="" fixed="top">
       <Navbar.Brand className="text-p" href="#home">
-        <img src="logo" alt="" width="30" height="30" className="d-inline-block align-top"/> Kalm
+        <img src="https://firebasestorage.googleapis.com/v0/b/kalm-react.appspot.com/o/logo%2FkalmLogo.png?alt=media&token=ee97e84a-5eff-410a-8426-45013825221a" 
+        alt="" width="30" height="30" className="d-inline-block align-top"/> Kalm
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
       <Navbar.Collapse id="responsive-navbar-nav">
@@ -216,8 +217,7 @@ function LandingPage() {
         </Container>
       </Navbar>
     </div>
-    </Container>
-
+    </>
   );
 }
 

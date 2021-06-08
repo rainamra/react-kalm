@@ -1,23 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Button } from "react-bootstrap";
 import { useTimer } from 'react-timer-hook';
 import "./RoutinePage.css";
-import BackgroundVideo from './BackgroundVideo';
 import { useRoutine } from "../contexts/RoutineContext";
 import { useHistory } from "react-router-dom";
+import BackgroundVideo from './BackgroundVideo';
 import LoadSpinner from './LoadSpinner';
 
-export default function RoutinePage() {
+export default function TemplatePage() {
 
     const [isStarting, setStarting] = useState(false);
     const [activeActivity, setActiveActivity] = useState(1);
     const [activeTitle, setActiveTitle] = useState('');
     const [nextTitle, setNextTitle] = useState('');
     const [activeDuration, setActiveDuration] = useState(0);
-    const { getRoutineData, currentRoutines } = useRoutine();
-    const [isLoaded, setIsLoaded] = useState(false);
-
+    const { getTemplateData, currentRoutines } = useRoutine();
     const history = useHistory();
+    const [isLoaded, setIsLoaded] = useState(false);
 
     const { selectedRoutine } = useRoutine();
 
@@ -63,24 +62,19 @@ export default function RoutinePage() {
                     </div>
                 </div>
                 {renderButton()}
-                <p className="font-weight-light"> {activeActivity === 1 ? '': `Next activity:  ${nextTitle}`}</p>
+                <p className="font-weight-light">{activeActivity === 1 ? '': `Next activity:  ${nextTitle}`}</p>
                 </div>
             </>
         )
     }
 
     useEffect(() => {
-        setTimeout(() => {
-            startRoutine()
-            .then(() =>
-            setIsLoaded(true)
-            )
-        }, 1000)
+        startRoutine();
     }, [])
 
     async function startRoutine() {
         try {
-        getRoutineData();
+            getTemplateData();
         } catch (e) {
             console.log('you have no access');
             history.push('/');
@@ -89,34 +83,32 @@ export default function RoutinePage() {
 
     function nextRoutineHandler() {
         if (activeActivity < currentRoutines.length-2) {
-            selectedRoutine(currentRoutines[0].id);
-            history.push("/last-routine")
-            // setStarting(false);
-            // console.log(currentRoutines);
-            // setActiveActivity(activeActivity+1)
-            // console.log(activeActivity)
+            setStarting(false);
+            console.log(currentRoutines);
+            setActiveActivity(activeActivity+1)
+            console.log(activeActivity)
 
-            // setActiveTitle(currentRoutines[activeActivity].activity);
-            // setActiveDuration(currentRoutines[activeActivity].minutes);
-            // setNextTitle(currentRoutines[activeActivity+1].activity)
-            // console.log(activeActivity)
+            setActiveTitle(currentRoutines[activeActivity].activity);
+            setActiveDuration(currentRoutines[activeActivity].minutes);
+            setNextTitle(currentRoutines[activeActivity+1].activity)
+            console.log(activeActivity)
         }
         else {
-            // selectedRoutine(currentRoutines[0].id);
-            // history.push("/last-routine")
+            selectedRoutine(currentRoutines[0].id);
+            history.push("/last-routine")
         }
     }
 
     const time = new Date();
-    time.setMinutes(time.getMinutes() +Number(activeDuration));
+    time.setMinutes(time.getMinutes() +Number(activeDuration)); // 10 minutes timer
     return (
       <>
-      {isLoaded === true ?
-      <BackgroundVideo
-       blur={1}
-       videoSource="https://firebasestorage.googleapis.com/v0/b/kalm-react.appspot.com/o/video%2FbackgroundVideo.mp4?alt=media&token=33018cd9-0137-4524-a1e6-08c7d1a0e79d">
-          <MyTimer expiryTimestamp={time} />
-      </BackgroundVideo> : <LoadSpinner/>}
+        {isLoaded === true ?
+        <BackgroundVideo
+        blur={1}
+        videoSource="https://firebasestorage.googleapis.com/v0/b/kalm-react.appspot.com/o/video%2FbackgroundVideo.mp4?alt=media&token=33018cd9-0137-4524-a1e6-08c7d1a0e79d">
+            <MyTimer expiryTimestamp={time} />
+            </BackgroundVideo> : <LoadSpinner/>}
       </>
     );
 

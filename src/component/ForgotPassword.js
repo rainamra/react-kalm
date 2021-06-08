@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
-import { Form, Button, Card, Alert } from "react-bootstrap";
+import { Form, Button, Card, Alert, Row, Col, Container } from "react-bootstrap";
 import { useAuth } from "../contexts/AuthContext";
+import './LoginPage.css';
 import { Link } from "react-router-dom";
 
 export default function ForgotPassword() {
@@ -27,28 +28,45 @@ export default function ForgotPassword() {
 
   return (
     <>
-      <Card>
-        <Card.Body>
-          <h2 className="text-center mb-4">Password Reset</h2>
-          {error && <Alert variant="danger">{error}</Alert>}
-          {message && <Alert variant="success">{message}</Alert>}
-          <Form onSubmit={handleSubmit}>
-            <Form.Group id="email">
-              <Form.Label>Email</Form.Label>
-              <Form.Control type="email" ref={emailRef} required />
-            </Form.Group>
-            <Button disabled={loading} className="w-100" type="submit">
-              Reset Password
-            </Button>
+    <Container>
+      <Row className="justify-content-center margin-row">
+        <h3>Password Reset</h3>
+      </Row>
+      <Row className="mt-2">
+        <Col lg="6">
+          <Form className="login-form" onSubmit={handleSubmit}>
+            <Form.Row>
+              <Col>
+              <Form.Group controlId="formBasicEmail">
+                  <Form.Label>Email</Form.Label>
+                  <Form.Control type="email" placeholder="Enter email" ref={emailRef} required />
+                  {error && <Alert variant="danger">{error}</Alert>}
+                  {message && <Alert variant="success">{message}</Alert>}
+              </Form.Group>
+              </Col>
+            </Form.Row>
+            <Form.Row>
+              <Button disabled={loading} className="btn-block btn-color rounded-pill" variant="" type="submit">
+                  Reset Password
+              </Button>
+            </Form.Row>
+            <Form.Row className="text-center">
+              <Col>
+              <Link to="/login">Login</Link>
+              </Col>
+            </Form.Row>
+            <Form.Row className="text-center mt-4">
+              <Col>
+              Need an account?
+              </Col>
+              <Col>
+              <Link to="/signup">Sign Up</Link>
+              </Col>
+            </Form.Row>
           </Form>
-          <div className="w-100 text-center mt-3">
-            <Link to="/login">Login</Link>
-          </div>
-        </Card.Body>
-      </Card>
-      <div className="w-100 text-center mt-2">
-        Need an account? <Link to="/signup">Sign Up</Link>
-      </div>
+        </Col>
+      </Row>
+    </Container>
     </>
   );
 }

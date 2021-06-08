@@ -1,50 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Modal, Button, Row } from "react-bootstrap";
+import { Modal, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import './TemplateRoutine.css';
-import './RoutineCard';
 import RoutineCard from "./RoutineCard";
 import { db } from "../firebase";
 import { useAuth } from "../contexts/AuthContext"
-
-function TemplateRoutineModal(props) {
-    return (
-    <Modal
-    {...props}
-    size="md"
-    aria-labelledby="contained-modal-title-vcenter"
-    centered
-    >
-    <Modal.Header closeButton>
-        <Row>
-        <Modal.Title id="contained-modal-title-vcenter">
-            Chill Nights
-        </Modal.Title>
-        <Row>
-        </Row>
-        <p>
-        Cras mattis consectetur purus sit amet fermentum.
-        </p>
-        </Row>
-    </Modal.Header>
-    <Modal.Body>
-        <p>Duration:</p>
-        <p>Description:</p>
-        <ul>
-            <li>Routine one</li>
-            <li>Routine two</li>
-            <li>Routine three</li>
-            <li>Routine four</li>
-        </ul>
-    </Modal.Body>
-    <Modal.Footer>
-        <Button onClick={props.onHide}>
-            <Link to="/ongoing-routine" className="link">Start</Link>
-        </Button>
-    </Modal.Footer>
-    </Modal>
-);
-}
+import { useRoutine } from "../contexts/RoutineContext"
+import LoadSpinner from './LoadSpinner';
 
 function CreateRoutineModal(props) {
     return (
@@ -78,19 +40,26 @@ function TemplateRoutine() {
     const [customModalShow, setCustomModalShow] = useState(false);
     const [createNewModalShow, setCreateNewModalShow] = useState(false);
     const [routineCards, setRoutineCards] = useState([]);
+    const [templateCards, setTemplateCards] = useState([]);
+    const [templateRoutines, setTemplateRoutines] = useState([]);
     const [modalTitle, setModalTitle] = useState('');
     const [modalDuration, setModalDuration] = useState('');
     const [modalDesc, setModalDesc] = useState('');
-
+    const [isLoaded, setIsLoaded] = useState(false);
 
     const { currentUser } = useAuth();
+    const { selectedRoutine } = useRoutine();
 
-
-    // db.collection('users').doc(currentUser.uid).collection('Routines').doc(titleRef.current.value).collection(`routine ${r.id}`).doc(`${r.id}`)
     useEffect(() => {
-        db.collection('users').doc(currentUser.uid).collection('Routines').onSnapshot(snapshot => (
-            setRoutineCards(snapshot.docs.map((doc) => ({id: doc.id, ...doc.data()})))
-        ))
+        setTimeout(() => {
+            db.collection('users').doc(currentUser.uid).collection('Routines').onSnapshot(snapshot => (
+                setRoutineCards(snapshot.docs.map((doc) => ({id: doc.id, ...doc.data()})))
+            ))
+            db.collection('templates').onSnapshot(snapshot => (
+                setTemplateCards(snapshot.docs.map((doc) => ({id: doc.id, ...doc.data()})))
+            ))
+            setIsLoaded(true)
+        }, 2000)
     }, [])
 
     function CustomRoutineModal(props) {
@@ -108,14 +77,16 @@ function TemplateRoutine() {
         </Modal.Header>
         <Modal.Body>
             <h4>{modalTitle}</h4>
-            <p>Duration:</p>
+            <p>Duration: {modalDuration} minutes</p>
             <p>Description:</p>
             <p>
-            Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-            dapibus ac facilisis in, egestas eget quam.
+            {modalDesc}
             </p>
         </Modal.Body>
         <Modal.Footer>
+            <Button onClick={props.onHide}>
+                <Link to="/update-routine" className="link">Edit</Link>
+            </Button>
             <Button onClick={props.onHide}>
                 <Link to="/ongoing-routine" className="link">Start</Link>
             </Button>
@@ -124,61 +95,115 @@ function TemplateRoutine() {
     );
     }
 
+    function TemplateRoutineModal(props) {
     return (
-        <div className="template-routine">
-            <h2>Night Routine Template</h2>
-            <div className="routineCards templates">
-                <div className="template" onClick={() => setTemplateModalShow(true)}>
-                <RoutineCard image="https://i.postimg.cc/P5Gxsphw/kilarov-zaneit-1-Mqa-Cfb-FGCs-unsplash.jpg" title="Chill Nights"/>
+    <Modal
+    {...props}
+    size="md"
+    aria-labelledby="contained-modal-title-vcenter"
+    centered
+    >
+    <Modal.Header closeButton>
+        <Modal.Title id="contained-modal-title-vcenter">
+            {modalTitle}
+        </Modal.Title>
+    </Modal.Header>
+    <Modal.Body>
+        <p>Duration: {modalDuration}</p>
+        <p>Description:</p>
+        <ul>
+            {templateRoutines.map(routine => (
+                 <li>{routine.activity}</li>
+            ))}
+        </ul>
+    </Modal.Body>
+    <Modal.Footer>
+        <Button onClick={props.onHide}>
+            <Link to="/template-routine" className="link">Start</Link>
+        </Button>
+    </Modal.Footer>
+    </Modal>
+);
+}
+
+    return (
+        <>
+        {isLoaded === true ?
+        <div className="template-routine mt-5 pt-4">
+                <h2>Night Routine Template</h2>
+                <div className="routineCards templates">
+                {templateCards.map(card => (
+                        <div className="template" onClick={() => {setTemplateModalShow(true);
+                            setModalTitle(card.id);
+                            setModalDuration(card.totalDuration);
+                            setModalDesc(card.description);
+                            setTemplateRoutines([
+                                {
+                                    activity: card.routine1.activity
+                                },
+                                {
+                                    activity: card.routine2.activity
+                                },
+                                {
+                                    activity: card.routine3.activity
+                                },
+                                {
+                                    activity: card.routine4.activity
+                                },
+                                {
+                                    activity: card.routine5.activity
+                                }
+
+                            ]);
+                            selectedRoutine(card.id);
+                            }
+                            }>
+                            <RoutineCard image={card.imgURL} title={card.id}/>
+                        </div>
+                    ))}
+                    <TemplateRoutineModal
+                        show={templateModalShow}
+                        onHide={() => setTemplateModalShow(false)}
+                    />
                 </div>
-                <div className="template" onClick={() => setTemplateModalShow(true)}>
-                <RoutineCard image="https://i.postimg.cc/P5Gxsphw/kilarov-zaneit-1-Mqa-Cfb-FGCs-unsplash.jpg" title="Chill Nights"/>
+                <h2>Your Night Routine</h2>
+                <div className="routineCards customs">
+                    {routineCards.map(card => (
+                        <div className="custom" onClick={() => {setCustomModalShow(true);
+                            setModalTitle(card.id);
+                            setModalDuration(card.totalDuration);
+                            setModalDesc(card.description);
+                            selectedRoutine(card.id);
+                            }
+                            }>
+                            <RoutineCard image={card.imgURL} title={card.id} list={<><li>{card.routine1.activity}</li>
+                            <li>{card.routine2.activity}</li>
+                            <li>{card.routine3.activity}</li>
+                            <li>{card.routine4.activity}</li>
+                            <li>{card.routine5.activity}</li></>}/>
+                        </div>
+                    ))}
+                    <CustomRoutineModal
+                        show={customModalShow}
+                        onHide={() => setCustomModalShow(false)}
+                    />
                 </div>
-                <div className="template" onClick={() => setTemplateModalShow(true)}>
-                <RoutineCard image="https://i.postimg.cc/P5Gxsphw/kilarov-zaneit-1-Mqa-Cfb-FGCs-unsplash.jpg" title="Chill Nights"/>
-                </div>
-                <div className="template" onClick={() => setTemplateModalShow(true)}>
-                <RoutineCard image="https://i.postimg.cc/P5Gxsphw/kilarov-zaneit-1-Mqa-Cfb-FGCs-unsplash.jpg" title="Chill Nights"/>
-                </div>
-                <TemplateRoutineModal
-                    show={templateModalShow}
-                    onHide={() => setTemplateModalShow(false)}
-                />
-            </div>
-            <h2>Your Night Routine</h2>
-            <div className="routineCards customs">
-                {routineCards.map(card => (
-                    <div className="custom" onClick={() => {setCustomModalShow(true); setModalTitle(card.id)}}>
-                        <RoutineCard image="https://i.postimg.cc/P5Gxsphw/kilarov-zaneit-1-Mqa-Cfb-FGCs-unsplash.jpg" title={card.id}/>
-                        <ul>
-                        <li>{card.routine1.activity}</li>
-                        <li>{card.routine2.activity}</li>
-                        <li>{card.routine3.activity}</li>
-                        <li>{card.routine4.activity}</li>
-                        <li>{card.routine5.activity}</li>
-                        </ul>
+                <div className="routineCards customs">
+                    <div className="custom create mb-5" onClick={() => setCreateNewModalShow(true)} >
+                        <div className="image">
+                            <RoutineCard image="https://i.postimg.cc/MH2SQmmk/jan-kahanek-f-VUl6kz-Iv-Lg-unsplash.jpg"/>
+                        </div>
+                        <div className="middle">
+                            <p>Create new</p>
+                        </div>
                     </div>
-                ))}
-                <CustomRoutineModal
-                    show={customModalShow}
-                    onHide={() => setCustomModalShow(false)}
-                />
-            </div>
-            <div className="routineCards customs">
-                <div className="custom create" onClick={() => setCreateNewModalShow(true)} >
-                    <div className="image">
-                        <RoutineCard image="https://i.postimg.cc/MH2SQmmk/jan-kahanek-f-VUl6kz-Iv-Lg-unsplash.jpg"/>
-                    </div>
-                    <div className="middle">
-                        <p>Create new</p>
-                    </div>
+                    <CreateRoutineModal
+                        show={createNewModalShow}
+                        onHide={() => setCreateNewModalShow(false)}
+                    />
                 </div>
-                <CreateRoutineModal
-                    show={createNewModalShow}
-                    onHide={() => setCreateNewModalShow(false)}
-                />
-            </div>
-        </div>
+            </div>: <LoadSpinner />}
+        </>
     );
 }
 
