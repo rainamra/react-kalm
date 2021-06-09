@@ -1,5 +1,5 @@
-import React, { useRef, useState, useEffect } from "react"
-import { Form, Button, Card, Alert, Row, Image, Col, InputGroup, Modal} from "react-bootstrap"
+import React, { useRef, useState } from "react"
+import { Form, Button, Alert, Row, Col, InputGroup, Modal} from "react-bootstrap"
 import { useAuth } from "../contexts/AuthContext"
 import { useHistory, Link } from "react-router-dom"
 import { db } from '../firebase'
@@ -15,6 +15,7 @@ function SaveModal(props) {
   size="md"
   aria-labelledby="contained-modal-title-vcenter"
   centered
+  animation={false}
   >
   <Modal.Header>
       <Modal.Title id="contained-modal-title-vcenter">
@@ -168,7 +169,6 @@ function UpdateRoutine() {
         try {
         getRoutineData();
         setRoutines(currentRoutines);
-        console.log()
         } catch (e) {
             console.log('you have no access');
             history.push('/');
@@ -186,7 +186,7 @@ function UpdateRoutine() {
             'routine4.activity': activity4Ref.current.value,
             'routine4.minutes': minute4Ref.current.value,
             'routine5.activity': activity5Ref.current.value,
-            'routine5.minutes': minute4Ref.current.value,
+            'routine5.minutes': minute5Ref.current.value
         }).then(function() {
             console.log("Routine updated");
         })
@@ -198,9 +198,9 @@ function UpdateRoutine() {
         <h6 className="text-center mb-5">Routine updated! Next step, choose your new video to complete the routine.</h6>
         <div className="w-100 row justify-content-center">
             {
-                videolist.map(v => {
+                videolist.map((v, i) => {
                     return (
-                        <div className="video-container w-25 m-3 row justify-content-center"
+                        <div key={i} className="video-container w-25 m-3 row justify-content-center"
                         onClick={e => {e.preventDefault(); videoHandler(v.link, v.title);}}>
                         <VideoSelection youtubeURL={v.link}
                         theme={v.title}
@@ -217,7 +217,6 @@ function UpdateRoutine() {
     const showForm = e => {
         getData();
         setError("");
-        console.log(routines);
     }
 
     const UpdateForm = () => {
@@ -340,8 +339,6 @@ function UpdateRoutine() {
                 title: videoTitle,
                 link: videoLink
             }]);
-        console.log(video);
-        console.log(videoLink);
         setSelected(true);
     }
 

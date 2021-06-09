@@ -30,7 +30,6 @@ export default function RoutinePage() {
             start,
             pause,
             resume,
-            restart,
           } = useTimer({ expiryTimestamp, onExpire: () => console.warn('onExpire called') });
 
         const renderButton = () => {
@@ -70,12 +69,20 @@ export default function RoutinePage() {
     }
 
     useEffect(() => {
-        setTimeout(() => {
-            startRoutine()
-            .then(() =>
-            setIsLoaded(true)
-            )
-        }, 1000)
+        let mounted = true
+
+        if (mounted) {
+            setTimeout(() => {
+                startRoutine()
+                .then(() =>
+                setIsLoaded(true)
+                )
+            }, 1000)}
+
+        return () => {
+            mounted = false
+          }
+
     }, [])
 
     async function startRoutine() {
@@ -89,21 +96,16 @@ export default function RoutinePage() {
 
     function nextRoutineHandler() {
         if (activeActivity < currentRoutines.length-2) {
-            selectedRoutine(currentRoutines[0].id);
-            history.push("/last-routine")
-            // setStarting(false);
-            // console.log(currentRoutines);
-            // setActiveActivity(activeActivity+1)
-            // console.log(activeActivity)
+            setStarting(false);
+            setActiveActivity(activeActivity+1)
 
-            // setActiveTitle(currentRoutines[activeActivity].activity);
-            // setActiveDuration(currentRoutines[activeActivity].minutes);
-            // setNextTitle(currentRoutines[activeActivity+1].activity)
-            // console.log(activeActivity)
+            setActiveTitle(currentRoutines[activeActivity].activity);
+            setActiveDuration(currentRoutines[activeActivity].minutes);
+            setNextTitle(currentRoutines[activeActivity+1].activity)
         }
         else {
-            // selectedRoutine(currentRoutines[0].id);
-            // history.push("/last-routine")
+            selectedRoutine(currentRoutines[0].id);
+            history.push("/last-routine")
         }
     }
 

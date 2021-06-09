@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import ReactPlayer from "react-player";
 import "./RoutinePage.css";
 import { useAuth } from "../contexts/AuthContext";

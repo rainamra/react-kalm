@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import { useTimer } from 'react-timer-hook';
 import "./RoutinePage.css";
@@ -29,7 +29,6 @@ export default function TemplatePage() {
             start,
             pause,
             resume,
-            restart,
           } = useTimer({ expiryTimestamp, onExpire: () => console.warn('onExpire called') });
 
         const renderButton = () => {
@@ -69,7 +68,19 @@ export default function TemplatePage() {
     }
 
     useEffect(() => {
-        startRoutine();
+        let mounted = true
+        if (mounted) {
+            setTimeout(() => {
+                startRoutine()
+                .then(() =>
+                setIsLoaded(true)
+                )
+            }, 1000)
+        }
+
+        return () => {
+            mounted = false
+          }
     }, [])
 
     async function startRoutine() {
@@ -84,14 +95,11 @@ export default function TemplatePage() {
     function nextRoutineHandler() {
         if (activeActivity < currentRoutines.length-2) {
             setStarting(false);
-            console.log(currentRoutines);
             setActiveActivity(activeActivity+1)
-            console.log(activeActivity)
 
             setActiveTitle(currentRoutines[activeActivity].activity);
             setActiveDuration(currentRoutines[activeActivity].minutes);
             setNextTitle(currentRoutines[activeActivity+1].activity)
-            console.log(activeActivity)
         }
         else {
             selectedRoutine(currentRoutines[0].id);
@@ -108,7 +116,7 @@ export default function TemplatePage() {
         blur={1}
         videoSource="https://firebasestorage.googleapis.com/v0/b/kalm-react.appspot.com/o/video%2FbackgroundVideo.mp4?alt=media&token=33018cd9-0137-4524-a1e6-08c7d1a0e79d">
             <MyTimer expiryTimestamp={time} />
-            </BackgroundVideo> : <LoadSpinner/>}
+        </BackgroundVideo> : <LoadSpinner/>}
       </>
     );
 

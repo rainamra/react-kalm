@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { Form, Button, Card, Alert, Row, Col, Container } from "react-bootstrap";
+import { Form, Button, Alert, Row, Col, Container } from "react-bootstrap";
 import { useAuth } from "../contexts/AuthContext";
 import './LoginPage.css';
 import { Link } from "react-router-dom";

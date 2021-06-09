@@ -17,6 +17,7 @@ function SaveModal(props) {
     size="md"
     aria-labelledby="contained-modal-title-vcenter"
     centered
+    animation={false}
     >
     <Modal.Header>
         <Modal.Title id="contained-modal-title-vcenter">
@@ -228,8 +229,6 @@ function CreateNewRoutinePage() {
                 id: inputs.length,
                 number: inputs.length+1,
             }])
-            console.log(routines);
-
         }
         else if (inputs.length > 0 && inputs.length < 5) {
             setRoutines([...routines, {
@@ -237,7 +236,6 @@ function CreateNewRoutinePage() {
                     activity: routine,
                     minutes: duration
                 }])
-            console.log(routines);
 
             setInputs([...inputs, {
                 id: inputs.length,
@@ -250,7 +248,6 @@ function CreateNewRoutinePage() {
                     activity: routine,
                     minutes: duration
                 }])
-            console.log(routines[0].activity);
         }
 
         setRoutine('');
@@ -310,10 +307,8 @@ function CreateNewRoutinePage() {
     }
 
     function deleteRoutine(id) {
-        console.log(routines);
         const newRoutines = routines.filter((r) => r.id !== id);
         setRoutines(newRoutines);
-        console.log(routines);
     }
 
     function videoHandler(videoLink, videoTitle) {
@@ -322,8 +317,6 @@ function CreateNewRoutinePage() {
                 title: videoTitle,
                 link: videoLink
             }]);
-        console.log(video);
-        console.log(videoLink);
         setSelected(true);
     }
 
@@ -333,9 +326,9 @@ function CreateNewRoutinePage() {
         <h2 className="mb-5">Choose Final Routine</h2>
         <div className="w-100 row justify-content-center">
             {
-                videolist.map(v => {
+                videolist.map((v, i) => {
                     return (
-                        <div className="video-container w-25 m-3" onClick={e => {e.preventDefault(); videoHandler(v.link, v.title);}}>
+                        <div key={i} className="video-container w-25 m-3" onClick={e => {e.preventDefault(); videoHandler(v.link, v.title);}}>
                         <VideoSelection youtubeURL={v.link} theme={v.title} description={v.desc} status={v.link === video ? isSelected : null}/>
                         </div>
                     )
@@ -410,9 +403,9 @@ function CreateNewRoutinePage() {
             {startButton()}
             </div>
             {
-                inputs.map(input => {
+                inputs.map((input, i) => {
                     return (
-                        <div className="options row justify-content-center">
+                        <div key={i} className="options row justify-content-center">
                             <Row className="option w-50 mt-3 text-center align-items-center">
                                 <Col  className="text-muted" md="1">
                                     <h1>{input.number}</h1>

@@ -15,6 +15,7 @@ function CreateRoutineModal(props) {
     size="md"
     aria-labelledby="contained-modal-title-vcenter"
     centered
+    animation={false}
     >
     <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
@@ -22,8 +23,9 @@ function CreateRoutineModal(props) {
         </Modal.Title>
     </Modal.Header>
     <Modal.Body>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-        <p>Are you ready?</p>
+        <p className="font-italic">Hi, let's create a night routine. You could personally give name,
+            description, and cover photo for your routine.
+            We hope you can get a good night sleep after!</p>
     </Modal.Body>
     <Modal.Footer>
         <Button onClick={props.onHide}>
@@ -69,6 +71,7 @@ function TemplateRoutine() {
         size="md"
         aria-labelledby="contained-modal-title-vcenter"
         centered
+        animation={false}
         >
         <Modal.Header closeButton>
             <Modal.Title id="contained-modal-title-vcenter">
@@ -102,6 +105,7 @@ function TemplateRoutine() {
     size="md"
     aria-labelledby="contained-modal-title-vcenter"
     centered
+    animation={false}
     >
     <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
@@ -112,8 +116,8 @@ function TemplateRoutine() {
         <p>Duration: {modalDuration}</p>
         <p>Description:</p>
         <ul>
-            {templateRoutines.map(routine => (
-                 <li>{routine.activity}</li>
+            {templateRoutines.map((routine, i) => (
+                 <li key={i}>{routine.activity}</li>
             ))}
         </ul>
     </Modal.Body>
@@ -132,8 +136,8 @@ function TemplateRoutine() {
         <div className="template-routine mt-5 pt-4">
                 <h2>Night Routine Template</h2>
                 <div className="routineCards templates">
-                {templateCards.map(card => (
-                        <div className="template" onClick={() => {setTemplateModalShow(true);
+                {templateCards.map((card, i) => (
+                        <div key={i} className="template" onClick={() => {setTemplateModalShow(true);
                             setModalTitle(card.id);
                             setModalDuration(card.totalDuration);
                             setModalDesc(card.description);
@@ -168,8 +172,8 @@ function TemplateRoutine() {
                 </div>
                 <h2>Your Night Routine</h2>
                 <div className="routineCards customs">
-                    {routineCards.map(card => (
-                        <div className="custom" onClick={() => {setCustomModalShow(true);
+                    {routineCards.map((card, i) => (
+                        <div key={i} className="custom" onClick={() => {setCustomModalShow(true);
                             setModalTitle(card.id);
                             setModalDuration(card.totalDuration);
                             setModalDesc(card.description);
@@ -177,7 +181,7 @@ function TemplateRoutine() {
                             }
                             }>
                             <RoutineCard image={card.imgURL} title={card.id} list={<><li>{card.routine1.activity}</li>
-                            <li>{card.routine2.activity}</li>
+                            <li >{card.routine2.activity}</li>
                             <li>{card.routine3.activity}</li>
                             <li>{card.routine4.activity}</li>
                             <li>{card.routine5.activity}</li></>}/>

@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect} from 'react'
+import React, { useContext, useState } from 'react'
 import { db } from '../firebase'
 import { useAuth } from "../contexts/AuthContext"
 
@@ -11,7 +11,6 @@ export function useRoutine() {
 export default function RoutineProvider({ children }) {
     const [currentRoutine, setCurrentRoutine] = useState('')
     const [currentRoutines, setCurrentRoutines] = useState([])
-    const [loading, setLoading] = useState(true)
     const { currentUser } = useAuth();
 
     function selectedRoutine(routineTitle) {
@@ -24,7 +23,6 @@ export default function RoutineProvider({ children }) {
                 console.log("not exist")
             }
             else {
-                console.log("Document data:", doc.data());
                 setCurrentRoutines([
                     {
                         id: doc.id
@@ -58,7 +56,6 @@ export default function RoutineProvider({ children }) {
                         totalDuration: doc.data().totalDuration
                     }
                 ]);
-                console.log(currentRoutines)
             }
         })
     }
@@ -69,7 +66,6 @@ export default function RoutineProvider({ children }) {
                 console.log("not exist")
             }
             else {
-                console.log("Document data:", doc.data());
                 setCurrentRoutines([
                     {
                         id: doc.id
@@ -103,7 +99,6 @@ export default function RoutineProvider({ children }) {
                         totalDuration: doc.data().totalDuration
                     }
                 ]);
-                console.log(currentRoutines)
             }
         })
     }

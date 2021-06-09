@@ -3,6 +3,7 @@ import { Form, Button, Card, Alert, Row, Image, Col } from "react-bootstrap"
 import { useAuth } from "../contexts/AuthContext"
 import { useHistory } from "react-router-dom"
 import { db, storage } from '../firebase'
+import LoadSpinner from './LoadSpinner';
 
 export default function UpdateProfile() {
     const emailRef = useRef()
@@ -17,6 +18,8 @@ export default function UpdateProfile() {
     const [picture, setPicture] = useState(null);
     const [pictureUrl, setPictureUrl] = useState("");
     const [currentPicture, setCurrentPicture] = useState("");
+    const [isLoaded, setIsLoaded] = useState(false);
+
 
     function handleSubmit(e) {
       e.preventDefault()
@@ -55,6 +58,8 @@ export default function UpdateProfile() {
           setUsername(doc.data().username);
           setName(doc.data().name);
           setCurrentPicture(doc.data().imgURL);
+      }).then(() => {
+        setIsLoaded(true)
       })
     }, [])
 
@@ -102,6 +107,7 @@ export default function UpdateProfile() {
 
     return (
       <>
+      {isLoaded === true ?
       <div>
       <Row className="profile p-5 mt-5 justify-content-lg-center">
         <Col lg="2">
@@ -161,7 +167,7 @@ export default function UpdateProfile() {
         </Card>
         </Col>
       </Row>
-      </div>
+      </div>  : <LoadSpinner/>}
       </>
     )
   }
