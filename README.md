@@ -1,5 +1,5 @@
 # Kalm - Web Application Development and Security Final Project
-
+A web application that could help you get better sleep quality.
 created by Rainamira Azzahra and Rayhan Ali Darmawan
 
 ## Background
@@ -40,7 +40,7 @@ To start you will need to create an account first. Fill in the form provided. En
 
 At this point, your dashboard probably quite empty. So let's start creating a new night routine. Click on a journal picture at the bottom of the page. It will led you to a new page where you can customize your own night routine. 
 
-### `ENTER NIGHT ROUTINE DEETAILS`
+### `ENTER NIGHT ROUTINE DETAILS`
 
 Fill in the title of the routine and description. You could name the routine based on the events or the situation you're in. For example, it's been a busy week for you so you might want to put encouraging words in the description. After that, you could pick an image as a cover that match the routine aesthetic. Click on the `plus` button and it will show the input field for the first activity. Enter what activity you want to do as well as the duration of that activity, then click the `check` icon. It will show another text field, repeat the steps again until the fifth routine. If you're done, click `submit` and the video selection will appear. Pick one video, then click `done`. Congratulations! You just make a night routine.
 
