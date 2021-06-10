@@ -34,7 +34,7 @@ It's quite simple to use our app. No need to download or subscribe any thing. Al
 
 ### `New User Registration`
 
-To start you will need to create an account first. Fill in the form provided. Enter your firstname, lastname, username, email, password, and password confirmation, then click Sign Up. After that, you will be directed immediately to the dashboard where you can see all the night routine. We also provided some template to try out. 
+To start you will need to create an account first. Fill in the form provided. Enter your firstname, lastname, username, email, password, and password confirmation, then click `Sign Up`. After that, you will be directed immediately to the dashboard where you can see all the night routine. We also provided some template to try out. 
 
 ### `CREATE A NIGHT ROUTINE`
 
@@ -42,57 +42,20 @@ At this point, your dashboard probably quite empty. So let's start creating a ne
 
 ### `ENTER NIGHT ROUTINE DEETAILS`
 
-Fill in the title of the routine and description. You could name the routine based on the events or the situation you're in. For example, it's been a busy week for you so you might want to put encouraging words in the description. After that, you could pick an image as a cover that match the routine aesthetic. Click on the plus button and it will show the input field for the first activity. Enter what activity you want to do as well as the duration of that activity, then click the check icon. It will show another text field, repeat the steps again until the fifth routine. If you're done, click Submit and the video selection will appear. Pick one video, then click Done. Congratulations! You just make a night routine.
+Fill in the title of the routine and description. You could name the routine based on the events or the situation you're in. For example, it's been a busy week for you so you might want to put encouraging words in the description. After that, you could pick an image as a cover that match the routine aesthetic. Click on the `plus` button and it will show the input field for the first activity. Enter what activity you want to do as well as the duration of that activity, then click the `check` icon. It will show another text field, repeat the steps again until the fifth routine. If you're done, click `submit` and the video selection will appear. Pick one video, then click `done`. Congratulations! You just make a night routine.
 
 ### `EDIT NIGHT ROUTINE`
 
-if you want to delete or change the night routine at any point. Once you click the routine on the dashboard, an Edit option will appear. But remember you can't edit the title, description, and the cover. You can only edit the activities as well as the duration of each activity.
+if you want to delete or change the night routine at any point. Once you click the routine on the dashboard, an `edit` option will appear. But remember you can't edit the title, description, and the cover. You can only edit the activities as well as the duration of each activity.
 
 If you want to change the title, description, and the cover, might as well delete the night routine and create a new one.
 
 
 ### `START A NIGHT ROUTINE`
 
-In order to start your routine, click the routine on the dashboard, Edit and Start options will appear. Choose the Start button, it will led you to a routine page. Click on the the Ready button, the web will render the first routine. Click Start, then the timer will run. If something urgent you need to deal with, you can Pause the timer and Resume again after. Below the button you will see your next activity in the routine. When the time is up, the activity title and time will reset and put up next activity information. When the current activity is complete, a new page will appear, specifically the video page, in which you must start to rest your eyes and sleep.
+In order to start your routine, click the routine on the dashboard, `edit` and `start` options will appear. Choose the `start` button, it will led you to a routine page. Click on the the `ready` button, the web will render the first routine. Click `start`, then the timer will run. If something urgent you need to deal with, you can `pause` the timer and `resume` again after. Below the button you will see your next activity in the routine. When the time is up, the activity title and time will reset and put up next activity information. When the current activity is complete, a new page will appear, specifically the video page, in which you must start to rest your eyes and sleep.
 
 ### `EDIT PROFILE`
 
-You could edt your profile, such as your profile picture, email, and password. Click on your username on the top right of the dashboard, then a dropdown will show. Go to profile, there you can see your profile details and edit form. If it's filled in, you can click Update.
+You could edit your profile, such as your profile picture, email, and password. Click on your username on the top right of the dashboard, then a dropdown will show. Go to `profile`, there you can see your profile details and edit form. If it's filled in, you can click `update`.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
