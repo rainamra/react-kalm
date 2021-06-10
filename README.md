@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# Kalm - Web Application Development and Security Final Project
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+created by Rainamira Azzahra and Rayhan Ali Darmawan
 
 ## Available Scripts
 
