@@ -19,34 +19,45 @@ Another step we might take to have better sleep is to create a night routine. A 
 ## Feature
 
 ### `Personalized Night Routine`
+You could create your own customized night routine based on your preferences and needs. Each night routine consists of five activities as well as the duration for each activities before bed.
 
 ### `Visual Timer`
+We also provide a visual timer so you can see how far you've come or how much time you have left to complete a activity.
 
 ### `Calming Sounds`
-
+At the end of the night routine, you can pick your desired calming sounds that we provided. There are various types from nature sounds to white noises. This could help you asleep faster.
 
 ## How to use
-
-In the project directory, you can run:
-
 ### `getyourkalm.com`
 
-### `npm test`
+It's quite simple to use our app. No need to download or subscribe any thing. All you have to do is go to our website.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### `New User Registration`
 
-### `npm run build`
+To start you will need to create an account first. Fill in the form provided. Enter your firstname, lastname, username, email, password, and password confirmation, then click Sign Up. After that, you will be directed immediately to the dashboard where you can see all the night routine. We also provided some template to try out. 
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### `CREATE A NIGHT ROUTINE`
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+At this point, your dashboard probably quite empty. So let's start creating a new night routine. Click on a journal picture at the bottom of the page. It will led you to a new page where you can customize your own night routine. 
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### `ENTER NIGHT ROUTINE DEETAILS`
 
-### `npm run eject`
+Fill in the title of the routine and description. You could name the routine based on the events or the situation you're in. For example, it's been a busy week for you so you might want to put encouraging words in the description. After that, you could pick an image as a cover that match the routine aesthetic. Click on the plus button and it will show the input field for the first activity. Enter what activity you want to do as well as the duration of that activity, then click the check icon. It will show another text field, repeat the steps again until the fifth routine. If you're done, click Submit and the video selection will appear. Pick one video, then click Done. Congratulations! You just make a night routine.
+
+### `EDIT NIGHT ROUTINE`
+
+if you want to delete or change the night routine at any point. Once you click the routine on the dashboard, an Edit option will appear. But remember you can't edit the title, description, and the cover. You can only edit the activities as well as the duration of each activity.
+
+If you want to change the title, description, and the cover, might as well delete the night routine and create a new one.
+
+
+### `START A NIGHT ROUTINE`
+
+In order to start your routine, click the routine on the dashboard, Edit and Start options will appear. Choose the Start button, it will led you to a routine page. Click on the the Ready button, the web will render the first routine. Click Start, then the timer will run. If something urgent you need to deal with, you can Pause the timer and Resume again after. Below the button you will see your next activity in the routine. When the time is up, the activity title and time will reset and put up next activity information. When the current activity is complete, a new page will appear, specifically the video page, in which you must start to rest your eyes and sleep.
+
+### `EDIT PROFILE`
+
+You could edt your profile, such as your profile picture, email, and password. Click on your username on the top right of the dashboard, then a dropdown will show. Go to profile, there you can see your profile details and edit form. If it's filled in, you can click Update.
 
 **Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
