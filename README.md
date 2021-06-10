@@ -2,17 +2,34 @@
 
 created by Rainamira Azzahra and Rayhan Ali Darmawan
 
-## Available Scripts
+## Background
+
+Getting enough sleep isn’t only about total hours of sleep. It’s also important to get good quality sleep on a regular schedule so you feel rested when you wake up. Unfortunately, many of us struggle with sleep deprivation or insomnia. This lead us to a reduction in sleep quality. As a result, it weakens the immune system and makes us more susceptible to illness and depression. Especially with such a pandemic, we must take care to to prevent getting contaminated.
+
+## Problem
+
+Sleep deprivation is primarily due to high levels of stress and anxiety during these uncertain times, but it can also be due to other factors. Changes in everyday routine are one of them as well as the atmosphere when going to sleep. People may have trouble sleeping due to changes in their routines, especially if they are working at home during the pandemic. Many people had inconsistent sleeping and waking up schedules even before the goverment suggested us to work and study from home. In order to get better sleep quality, it is necessary to stick to a regular routine. Uncomfortable room settings when you want to sleep also have an effect. The condition of the room is defined not only by cleanliness and the neatness, but also by all five senses. Take, for instance, sound.
+
+## Solution
+
+Lullabies and soft rhythms have been shown to assist newborns in falling asleep. Babies aren't the only ones, fortunately. People of all ages say that listening to calming music improves their sleep quality. It is also useful to reduce the time it takes to fall asleep. In a study of women with insomnia symptoms, participants listened to a self-selected album before going to bed. Usually they required 27 to 69 minutes to fall asleep but after adding music, it only took 6 to 13 minutes. Playing music before bed can help you fall asleep faster and sleep better by increasing sleep efficiency, which means you spend more time in bed asleep. Improved sleep efficiency translates to more consistent sleep and reduced nighttime awakenings.
+
+Another step we might take to have better sleep is to create a night routine. A night routine is a sequence of activities that you do before bed in the same order every night to help your mind and body relax. Evening routines vary, but they typically involve relaxing activities such as taking a warm bath, reading, journaling, or meditation. When you repeat the same things in the same order every night, your brain learns to associate those activities with sleep. Late-night stress and anxiety stimulate your brain and sympathetic nervous system, so night routines are key in controlling them. You could keep your thoughts focused on encourage yourself to rest by maintaining a night routine.
+
+## Feature
+
+### `Personalized Night Routine`
+
+### `Visual Timer`
+
+### `Calming Sounds`
+
+
+## How to use
 
 In the project directory, you can run:
 
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### `getyourkalm.com`
 
 ### `npm test`
 
