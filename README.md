@@ -1,6 +1,6 @@
 # Kalm - Web Application Development and Security Final Project
 A web application that could help you get better sleep quality.
-created by Rainamira Azzahra and Rayhan Ali Darmawan
+Created by Rainamira Azzahra and Rayhan Ali Darmawan
 
 ## Background
 
