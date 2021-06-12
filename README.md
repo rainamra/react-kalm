@@ -59,3 +59,13 @@ In order to start your routine, click the routine on the dashboard, `edit` and `
 
 You could edit your profile, such as your profile picture, email, and password. Click on your username on the top right of the dashboard, then a dropdown will show. Go to `profile`, there you can see your profile details and edit form. If it's filled in, you can click `update`.
 
+## Design Plan
+### `System Architecture`
+
+### `Use Case Diagram`
+
+### `Activity Diagram`
+
+### `Entity Relationship Diagram`
+
+### `Endpoint API`
