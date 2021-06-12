@@ -61,6 +61,8 @@ You could edit your profile, such as your profile picture, email, and password. 
 
 ## Design Plan
 ### `System Architecture`
+Microservice
+<img width="868" alt="Screen Shot 2021-06-12 at 15 29 53" src="https://user-images.githubusercontent.com/56628802/121770397-47ca3f80-cb93-11eb-9a29-cbb6817a6080.png">
 
 ### `Use Case Diagram`
 ![use-case-diagramFP](https://user-images.githubusercontent.com/56628802/121769163-421d2b80-cb8c-11eb-82ad-2a5140850e04.png)
