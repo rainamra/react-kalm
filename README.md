@@ -70,3 +70,5 @@ You could edit your profile, such as your profile picture, email, and password. 
 ### `Entity Relationship Diagram`
 
 ### `Endpoint API`
+<img width="554" alt="Screen Shot 2021-06-12 at 14 27 48" src="https://user-images.githubusercontent.com/56628802/121769210-827ca980-cb8c-11eb-9ae9-bb9d3401cae4.png">
+
