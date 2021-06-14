@@ -1,22 +1,25 @@
 import React from "react";
 import "./App.css";
-import LandingPage from "./component/LandingPage";
-import LoginPage from "./component/LoginPage";
-import SignUp from "./component/SignUp";
-import HeaderMain from "./component/Header.main";
-import TemplateRoutine from "./component/TemplateRoutine";
+import LandingPage from "./component/landing/LandingPage";
+import LoginPage from "./component/credentials/LoginPage";
+import SignUp from "./component/credentials/SignUp";
+import HeaderMain from "./component/dashboard/Header.main";
+import TemplateRoutine from "./component/dashboard/TemplateRoutine";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import AuthProvider from "./contexts/AuthContext";
 import RoutineProvider from "./contexts/RoutineContext";
 import PrivateRoute from "./component/PrivateRoute";
-import ForgotPassword from './component/ForgotPassword';
-import UpdateProfile from './component/UpdateProfile';
-import RoutinePage from './component/RoutinePage';
-import TemplatePage from './component/TemplatePage';
-import LastRoutinePage from './component/LastRoutinePage';
-import UpdateRoutine from './component/UpdateRoutine';
-import CreateNewRoutinePage from './component/CreateNewRoutinePage';
+import ForgotPassword from './component/credentials/ForgotPassword';
+import UpdateProfile from './component/user/UpdateProfile';
+import RoutinePage from './component/routine/RoutinePage';
+import TemplatePage from './component/routine/TemplatePage';
+import LastRoutinePage from './component/routine/LastRoutinePage';
+import UpdateRoutine from './component/routine/UpdateRoutine';
+import CreateNewRoutinePage from './component/routine/CreateNewRoutinePage';
+import axios from "axios";
+
+axios.defaults.baseURL = 'https://us-central1-kalm-react.cloudfunctions.net/app';
 
 function App() {
   return (

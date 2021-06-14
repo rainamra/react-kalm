@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { auth, db } from '../firebase'
-
+import axios from 'axios';
 
 const AuthContext = React.createContext()
 
@@ -14,12 +14,14 @@ export default function AuthProvider({ children }) {
 
     function signup(email, password, userName, fullName) {
         return auth.createUserWithEmailAndPassword(email, password).then(cred => {
-            db.collection('users').doc(cred.user.uid).set({
+            const article = {
+                id: cred.user.uid,
                 name: fullName,
                 username: userName,
                 email: email,
                 imgURL: "https://firebasestorage.googleapis.com/v0/b/kalm-react.appspot.com/o/profile%2Favatar.png?alt=media&token=5f7292c3-1c40-4593-a585-26dd35018151"
-            });
+              }
+              axios.post('/api/signup', article)
         })
     }
 

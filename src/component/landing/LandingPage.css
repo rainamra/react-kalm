@@ -1,0 +1,57 @@
+.text-p {
+    color: #014F86;
+}
+
+.toggler-p{
+    border-color: #014F86;
+}
+
+.jumb{
+    position: relative;
+    left: 0px;
+    top: 0px;
+    padding-top: 300px;
+    background: #C5EBF8;
+}
+
+.overlay{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 3;
+}
+
+.front{
+    position: relative;
+    z-index: 5;
+}
+
+.btn-custom{
+    color: #014F86;
+    background-color: white;
+}
+
+.virtual{
+    position: relative;
+    left: 0px;
+    top: 0px;
+    background: linear-gradient(90deg, #09203F 0%, #537895 100%);
+}
+
+.friend-sound{
+    position: relative;
+    left: 0px;
+    top: 0px;
+    background: linear-gradient(90deg, #FFF1EB 0%, #ACE0F9 100%);
+}
+
+.contact-f{
+    position: relative;
+    left: 0px;
+    background: linear-gradient(90deg, #09203F 0%, #537895 100%);
+}
+
+.footer-f{
+    background: linear-gradient(90deg, #FFF1EB 0%, #ACE0F9 100%);
+}
