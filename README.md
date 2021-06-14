@@ -1,70 +1,79 @@
-# Getting Started with Create React App
+# Kalm - Web Application Development and Security Final Project
+A web application that could help you get better sleep quality.
+Created by Rainamira Azzahra and Rayhan Ali Darmawan
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Background
 
-## Available Scripts
+Getting enough sleep isn’t only about total hours of sleep. It’s also important to get good quality sleep on a regular schedule so you feel rested when you wake up. Unfortunately, many of us struggle with sleep deprivation or insomnia. This lead us to a reduction in sleep quality. As a result, it weakens the immune system and makes us more susceptible to illness and depression. Especially with such a pandemic, we must take care to to prevent getting contaminated.
 
-In the project directory, you can run:
+## Problem
 
-### `npm start`
+Sleep deprivation is primarily due to high levels of stress and anxiety during these uncertain times, but it can also be due to other factors. Changes in everyday routine are one of them as well as the atmosphere when going to sleep. People may have trouble sleeping due to changes in their routines, especially if they are working at home during the pandemic. Many people had inconsistent sleeping and waking up schedules even before the goverment suggested us to work and study from home. In order to get better sleep quality, it is necessary to stick to a regular routine. Uncomfortable room settings when you want to sleep also have an effect. The condition of the room is defined not only by cleanliness and the neatness, but also by all five senses. Take, for instance, sound.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Solution
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Lullabies and soft rhythms have been shown to assist newborns in falling asleep. Babies aren't the only ones, fortunately. People of all ages say that listening to calming music improves their sleep quality. It is also useful to reduce the time it takes to fall asleep. In a study of women with insomnia symptoms, participants listened to a self-selected album before going to bed. Usually they required 27 to 69 minutes to fall asleep but after adding music, it only took 6 to 13 minutes. Playing music before bed can help you fall asleep faster and sleep better by increasing sleep efficiency, which means you spend more time in bed asleep. Improved sleep efficiency translates to more consistent sleep and reduced nighttime awakenings.
 
-### `npm test`
+Another step we might take to have better sleep is to create a night routine. A night routine is a sequence of activities that you do before bed in the same order every night to help your mind and body relax. Evening routines vary, but they typically involve relaxing activities such as taking a warm bath, reading, journaling, or meditation. When you repeat the same things in the same order every night, your brain learns to associate those activities with sleep. Late-night stress and anxiety stimulate your brain and sympathetic nervous system, so night routines are key in controlling them. You could keep your thoughts focused on encourage yourself to rest by maintaining a night routine.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Feature
 
-### `npm run build`
+### `Personalized Night Routine`
+You could create your own customized night routine based on your preferences and needs. Each night routine consists of five activities as well as the duration for each activities before bed.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### `Visual Timer`
+We also provide a visual timer so you can see how far you've come or how much time you have left to complete a activity.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### `Calming Sounds`
+At the end of the night routine, you can pick your desired calming sounds that we provided. There are various types from nature sounds to white noises. This could help you asleep faster.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## How to use
+### `getyourkalm.com`
 
-### `npm run eject`
+It's quite simple to use our app. No need to download or subscribe any thing. All you have to do is go to our website.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### `New User Registration`
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+To start you will need to create an account first. Fill in the form provided. Enter your firstname, lastname, username, email, password, and password confirmation, then click `Sign Up`. After that, you will be directed immediately to the dashboard where you can see all the night routine. We also provided some template to try out. 
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### `CREATE A NIGHT ROUTINE`
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+At this point, your dashboard probably quite empty. So let's start creating a new night routine. Click on a journal picture at the bottom of the page. It will led you to a new page where you can customize your own night routine. 
 
-## Learn More
+### `ENTER NIGHT ROUTINE DETAILS`
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Fill in the title of the routine and description. You could name the routine based on the events or the situation you're in. For example, it's been a busy week for you so you might want to put encouraging words in the description. After that, you could pick an image as a cover that match the routine aesthetic. Click on the `plus` button and it will show the input field for the first activity. Enter what activity you want to do as well as the duration of that activity, then click the `check` icon. It will show another text field, repeat the steps again until the fifth routine. If you're done, click `submit` and the video selection will appear. Pick one video, then click `done`. Congratulations! You just make a night routine.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### `EDIT NIGHT ROUTINE`
 
-### Code Splitting
+if you want to delete or change the night routine at any point. Once you click the routine on the dashboard, an `edit` option will appear. But remember you can't edit the title, description, and the cover. You can only edit the activities as well as the duration of each activity.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+If you want to change the title, description, and the cover, might as well delete the night routine and create a new one.
 
-### Analyzing the Bundle Size
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### `START A NIGHT ROUTINE`
 
-### Making a Progressive Web App
+In order to start your routine, click the routine on the dashboard, `edit` and `start` options will appear. Choose the `start` button, it will led you to a routine page. Click on the the `ready` button, the web will render the first routine. Click `start`, then the timer will run. If something urgent you need to deal with, you can `pause` the timer and `resume` again after. Below the button you will see your next activity in the routine. When the time is up, the activity title and time will reset and put up next activity information. When the current activity is complete, a new page will appear, specifically the video page, in which you must start to rest your eyes and sleep.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### `EDIT PROFILE`
 
-### Advanced Configuration
+You could edit your profile, such as your profile picture, email, and password. Click on your username on the top right of the dashboard, then a dropdown will show. Go to `profile`, there you can see your profile details and edit form. If it's filled in, you can click `update`.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## Design Plan
+### `System Architecture`
+Microservice
 
-### Deployment
+<img width="868" alt="Screen Shot 2021-06-12 at 15 29 53" src="https://user-images.githubusercontent.com/56628802/121770397-47ca3f80-cb93-11eb-9a29-cbb6817a6080.png">
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### `Use Case Diagram`
+![use-case-diagramFP](https://user-images.githubusercontent.com/56628802/121769163-421d2b80-cb8c-11eb-82ad-2a5140850e04.png)
 
-### `npm run build` fails to minify
+### `Activity Diagram`
+![Untitled Workspace (2)](https://user-images.githubusercontent.com/56628802/121797968-bb308780-cc4d-11eb-8a01-045ced9180ca.png)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### `Entity Relationship Diagram`
+![Untitled Workspace (1)](https://user-images.githubusercontent.com/56628802/121770993-f02dd300-cb96-11eb-83c6-c29fdbd4b9ad.png)
+
+### `Endpoint API`
+<img width="554" alt="Screen Shot 2021-06-12 at 14 27 48" src="https://user-images.githubusercontent.com/56628802/121769210-827ca980-cb8c-11eb-9ae9-bb9d3401cae4.png">
+
