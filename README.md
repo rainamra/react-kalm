@@ -61,7 +61,7 @@ You could edit your profile, such as your profile picture, email, and password. 
 
 ## Design Plan
 ### `System Architecture`
-Microservice
+SOA Architecture
 
 <img width="868" alt="Screen Shot 2021-06-12 at 15 29 53" src="https://user-images.githubusercontent.com/56628802/121770397-47ca3f80-cb93-11eb-9a29-cbb6817a6080.png">
 
@@ -77,3 +77,5 @@ Microservice
 ### `Endpoint API`
 <img width="554" alt="Screen Shot 2021-06-12 at 14 27 48" src="https://user-images.githubusercontent.com/56628802/121769210-827ca980-cb8c-11eb-9ae9-bb9d3401cae4.png">
 
+### `Poster`
+![kalmPoster (3)](https://user-images.githubusercontent.com/56628802/122061570-d69bbe00-ce18-11eb-8caf-adc58d079498.png)
