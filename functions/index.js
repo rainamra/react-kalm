@@ -1,3 +1,4 @@
+//by Rainamira Azzahra
 const functions = require("firebase-functions");
 const admin = require('firebase-admin');
 
@@ -54,46 +55,6 @@ app.post('/api/user/:id/routine/:routineid', (req, res) => {
 });
 
 //Read
-// app.get('/api/users', (req, res) => {
-//     (async () => {
-//         try
-//         {
-//             let query = db.collection('users');
-//             let response = []
-
-//             // const data = await query.get();
-//             // data.forEach(doc => {
-//             //     response.push(doc.data())
-//             //     return response;
-//             // });
-
-
-//             await query.get().then(querySnapshot => {
-//                 let docs = querySnapshot.docs;
-
-//                 for (let doc of docs)
-//                 {
-//                     const selectedItem = {
-//                         id: doc.data().id,
-//                         name: doc.data().name,
-//                         username: doc.data().username,
-//                         email: doc.data().email,
-//                         imgURL: doc.data().imgURL
-//                     };
-//                     response.push(selectedItem);
-//                 }
-//                 return response;
-//             })
-//             return res.status(200).send(response);
-//         }
-//         catch (error) {
-//             console.log(error);
-//             return res.status(500).send(error);
-//         }
-//     })();
-// });
-
-
 app.get('/api/user/:id', (req, res) => {
     (async () => {
         try

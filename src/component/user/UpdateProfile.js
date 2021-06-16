@@ -1,3 +1,4 @@
+//by Rainamira Azzahra
 import React, { useRef, useState, useEffect } from "react"
 import { Form, Button, Card, Alert, Row, Image, Col } from "react-bootstrap"
 import { useAuth } from "../../contexts/AuthContext"
@@ -16,6 +17,7 @@ export default function UpdateProfile() {
     const history = useHistory()
     const [username, setUsername] = useState("");
     const [name, setName] = useState("");
+    const [number, setNumber] = useState(0);
     const [picture, setPicture] = useState(null);
     const [currentPicture, setCurrentPicture] = useState("");
     const [isLoaded, setIsLoaded] = useState(false);
@@ -60,7 +62,13 @@ export default function UpdateProfile() {
         setName(res.data.name);
         setCurrentPicture(res.data.imgURL);
       }).then(() => {
-          setIsLoaded(true)
+        axios.get(`api/user/${currentUser.uid}/routines`)
+        .then(res => {
+            setNumber(res.data.length);
+        })
+      })
+      .then(() => {
+        setIsLoaded(true)
         })
     }, [])
 
@@ -114,7 +122,7 @@ export default function UpdateProfile() {
         <Col lg="6 mt-4">
         <h5>PROFILE</h5>
         <h2>{username}</h2>
-        <p>2 Night Routines</p>
+        <p>{number} Night Routines</p>
         <Form>
           <Form.Group>
             <Form.File id="exampleFormControlFile1"

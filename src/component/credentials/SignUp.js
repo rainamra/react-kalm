@@ -1,3 +1,4 @@
+//by Rainamira Azzahra
 import React, { useRef, useState } from "react";
 import { Form, Col, Row, Button, InputGroup, Alert } from "react-bootstrap";
 import "./LoginPage.css";
@@ -33,6 +34,7 @@ export default function SignUp() {
     }
     setLoading(false);
   }
+  
 
   return (
     <>

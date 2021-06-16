@@ -1,3 +1,4 @@
+//by Rainamira Azzahra
 import React, { useState, useRef } from "react";
 import { Form, Button, Alert, Row, Col, Container } from "react-bootstrap";
 import { useAuth } from "../../contexts/AuthContext";
@@ -33,7 +34,7 @@ export default function ForgotPassword() {
         <h3>Password Reset</h3>
       </Row>
       <Row className="mt-2">
-        <Col lg="6">
+        <Col>
           <Form className="login-form" onSubmit={handleSubmit}>
             <Form.Row>
               <Col>

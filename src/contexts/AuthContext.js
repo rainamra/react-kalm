@@ -1,5 +1,6 @@
+//by Rainamira Azzahra
 import React, { useContext, useState, useEffect } from 'react'
-import { auth, db } from '../firebase'
+import { auth } from '../firebase'
 import axios from 'axios';
 
 const AuthContext = React.createContext()

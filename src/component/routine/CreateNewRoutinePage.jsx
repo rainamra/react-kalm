@@ -1,14 +1,17 @@
+//by Rainamira Azzahra
 import React, { useState, useRef } from 'react'
-import CreatableSelect from 'react-select/creatable';
-import { InputGroup, FormControl, Form,  Button, Alert, Row, Col, Modal } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import DeleteIcon from '@material-ui/icons/Delete';
-import DoneIcon from '@material-ui/icons/Done';
-import AddCircleIcon from '@material-ui/icons/AddCircle';
-import IconButton from '@material-ui/core/IconButton';
-import VideoSelection from "./VideoSelection";
+import CreatableSelect from 'react-select/creatable'
+import { InputGroup, FormControl, Form,  Button, Alert, Row, Col, Modal } from "react-bootstrap"
+import { Link } from "react-router-dom"
+import DeleteIcon from '@material-ui/icons/Delete'
+import DoneIcon from '@material-ui/icons/Done'
+import AddCircleIcon from '@material-ui/icons/AddCircle'
+import IconButton from '@material-ui/core/IconButton'
+import VideoSelection from "./VideoSelection"
 import { useAuth } from "../../contexts/AuthContext"
-import { db, storage } from '../../firebase'
+import { storage } from '../../firebase'
+import routinelist from  '../data/routinelist.json'
+import videolist from  '../data/videolist.json'
 import axios from 'axios';
 
 
@@ -43,94 +46,6 @@ function SaveModal(props) {
 
 function CreateNewRoutinePage() {
 
-    var routinelist = [
-        {
-            value:1,
-            label:"Read a Book"
-        },
-        {
-            value:2,
-            label:"Take a Bath"
-        },
-        {
-            value:3,
-            label:"Drink a Cup of Tea"
-        },
-        {
-            value:4,
-            label:"Do Skincare"
-        },
-        {
-            value:5,
-            label:"Make a To-do List"
-        },
-        {
-            value:6,
-            label:"Watch an episode of Series on Netflix"
-        },
-        {
-            value:7,
-            label:"Snacking"
-        }
-    ];
-
-    var videolist = [
-        {
-            id:1,
-            title:"Drive Around Jakarta",
-            link:"https://youtu.be/LF3LxMKuSM0",
-            desc:"A video of driving through Jakarta Inner Ring Road. Designed to simulate the sights and sounds of a long road trip and help stubborn sleepers fall asleep as though they were on a long car ride."
-        },
-        {
-            id:2,
-            title:"Windy Desert",
-            link:"https://youtu.be/uKkJ0etAO5s",
-            desc:"The wind blows over dunes tries to dance with the sand and creates an intensive Desert Sound.The composition fits your needs to meditate, erase annoying noise, and sleep."
-        },
-        {
-            id:3,
-            title:"Sit by The River",
-            link:"https://youtu.be/zofBinqC2F4",
-            desc:"Relax with the sights and sounds of a pure mountain river and the springtime songs of robin, blackbird, thrush, chaffinch and other birds singing in the forest."
-        },
-        {
-            id:4,
-            title:"Rainy Days",
-            link:"https://youtu.be/HmH4W8JOifg",
-            desc:"People hear nature sounds in many different ways to relax, fall asleep or just to calm the soul. Sound of heavy rain can help insomnia, ease anxiety, and reduce stress."
-        },
-        {
-            id:5,
-            title:"Ocean Breeze",
-            link:"https://youtu.be/UyZfCrrdbm8",
-            desc:"Relax with the total tranquility of this pristine tropical beach and the sound of the crystal clear ocean waters gently lapping over the sandy shore of this wild exotic island."
-        },
-        {
-            id:6,
-            title:"Crickets Chirping",
-            link:"https://youtu.be/I4o87O4Pd_k",
-            desc:"Relax and sleep with the gentle calming sounds of crickets chirping in the grass on a warm summer night. This nature video can be used to create a peaceful and calming ambiance before you sleep."
-        },
-        {
-            id:7,
-            title:"Warm Fireplace",
-            link:"https://youtu.be/gB3XH5t9QCA",
-            desc:"Create a cozy and relaxing atmosphere with the crackling sounds and warming views of a fire burning in an open fireplace. This video and sounds can be used to create a feeling of peace and tranquility, warmth and coziness before you sleep."
-        },
-        {
-            id:8,
-            title:"Snowy Days",
-            link:"https://youtu.be/ne7g_Os_8hM",
-            desc:"Relax and enjoy the dreamy scenery of snow softly falling over the trees and houses, illuminated by the warm glowing light of street lanterns at dusk. Create a calm and cozy atmosphere or a festive Christmas mood before you sleep."
-        },
-        {
-            id:9,
-            title:"Birds Chirping",
-            link:"https://youtu.be/IsPBplWLImI",
-            desc:"Relax and enjoy the beauty of Bluebell flowers in bloom, covering the ground of an old forest in England and accompanied by the cheerful songs of blackbird, chaffinch, robin and other birds chirping up in the trees."
-        }
-    ];
-
     const titleRef = useRef();
     const descRef = useRef();
     const [routine, setRoutine] = useState('');
@@ -142,10 +57,10 @@ function CreateNewRoutinePage() {
     const [tagValue, setTagValue] = useState('');
     const [videos, setVideos] = useState(false);
     const [video, setVideo] = useState([]);
-    const [isSelected, setSelected] = useState(false);
     const [modalShow, setModalShow] = useState(false);
     const [picture, setPicture] = useState(null);
     const [pictureUrl, setPictureUrl] = useState("");
+    const [loading, setLoading] = useState(false);
     const { currentUser } = useAuth();
 
     const routineHandler = e =>
@@ -158,8 +73,9 @@ function CreateNewRoutinePage() {
 
         try {
             if(picture) {
-                const storageRef = storage.ref('profile');
-                const imageRef = storageRef.child(picture.name);
+                setLoading(true)
+                const storageRef = storage.ref('profile')
+                const imageRef = storageRef.child(picture.name)
                 imageRef.put(picture)
                 .then(() => {
                     storage.ref('profile').child(picture.name).getDownloadURL().then(url => {
@@ -198,6 +114,7 @@ function CreateNewRoutinePage() {
                         .then(() => {
                             setPictureUrl("")
                         })
+                        setLoading(false);
                         setModalShow(true);
                     })
                 })
@@ -219,6 +136,10 @@ function CreateNewRoutinePage() {
 
         if (descRef.current.value === "") {
         return setError("Please fill the description");
+        }
+
+        if (picture === null) {
+            return setError("Please choose an image");
         }
 
         if (inputs.length < 5 && inputs.length === 0 ) {
@@ -285,14 +206,21 @@ function CreateNewRoutinePage() {
     const nextButton = () =>
     {
         if (routines.length === 5 ) {
-           return <Button className="rounded-pill" type="submit" onClick={() => {setVideos(true)}}>Done</Button>
+           return <Button className="rounded-pill" type="submit" onClick={() => {
+               setVideos(true);
+               setVideo([
+                {
+                    title: "",
+                    link: ""
+                }]);
+        }}>Done</Button>
         }
     }
 
     const saveButton = () =>
     {
         if (video.length > 0 ) {
-           return <Button className="rounded-pill" type="submit" onClick={saveHandler}>Save</Button>
+           return <Button disabled={loading} className="rounded-pill" type="submit" onClick={saveHandler}>Save</Button>
         }
     }
 
@@ -314,19 +242,39 @@ function CreateNewRoutinePage() {
                 title: videoTitle,
                 link: videoLink
             }]);
-        setSelected(true);
+    }
+
+    const inputDescription = () => {
+        if (inputs.length > 0) {
+            return(
+                <>
+                <div className="mt-5">
+                    <h6 className="text-center">One by one, the input fields will appear. Fill them up, then click the check button. </h6>
+                    <h6 className="text-center">If you wish to change a confirmed input field, click the trash button.</h6>
+                </div>
+                </>
+            )
+        }
     }
 
     const VideoSelections = () => {
         return (
         <>
-        <h2 className="mb-5">Choose Final Routine</h2>
+        <div className="mb-3">
+        <h2 className="text-center mb-3">Choose Final Routine</h2>
+        <h6 className="text-center">Last step, choose your calming sound video to complete the whole night routine.</h6>
+        <h6 className="text-center">Calming sounds will help you falling asleep faster and get deeper sleep. </h6>
+        </div>
         <div className="w-100 row justify-content-center">
             {
                 videolist.map((v, i) => {
                     return (
                         <div key={i} className="video-container w-25 m-3" onClick={e => {e.preventDefault(); videoHandler(v.link, v.title);}}>
-                        <VideoSelection youtubeURL={v.link} theme={v.title} description={v.desc} status={v.link === video ? isSelected : null}/>
+                        <VideoSelection 
+                        youtubeURL={v.link} 
+                        theme={v.title} 
+                        description={v.desc} 
+                        status={v.link === video[0].link ? true : false}/>
                         </div>
                     )
                 })
@@ -353,7 +301,9 @@ function CreateNewRoutinePage() {
 
     return (
         <>
-            <h2 className="text-center mt-5 mb-5">Create Your Night Routine</h2>
+            <h2 className="text-center mt-5 mb-3">Create Your Night Routine</h2>
+            <h6 className="text-center">Please fill up the form including choosing an image for your cover routine.</h6>
+            <h6 className="text-center">We recommend you to pick landscape images. After you done, click on the plus button.</h6>
             <div className="row justify-content-center">
                 <Row className="option w-50 mt-3 align-items-center">
                     <Col className="text-muted" md="1">
@@ -362,7 +312,9 @@ function CreateNewRoutinePage() {
                     </h3>
                     </Col>
                     <Col md="10">
-                    <Form.Control type="text" placeholder="Name your series of routine here..." ref={titleRef}/>
+                    <Form.Control type="text"
+                    placeholder="Name your series of routine here..."
+                    ref={titleRef}/>
                     </Col>
                 </Row>
             </div>
@@ -374,7 +326,10 @@ function CreateNewRoutinePage() {
                     </h3>
                     </Col>
                     <Col md="10">
-                    <Form.Control type="text" placeholder="Add description to make the routine more personalized" ref={descRef}/>
+                    <Form.Control
+                    type="text"
+                    placeholder="Add description to make the routine more personalized" 
+                    ref={descRef}/>
                     </Col>
                 </Row>
             </div>
@@ -398,6 +353,7 @@ function CreateNewRoutinePage() {
             </div>
             <div className="row justify-content-center">
             {startButton()}
+            {inputDescription()}
             </div>
             {
                 inputs.map((input, i) => {

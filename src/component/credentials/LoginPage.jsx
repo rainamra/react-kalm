@@ -1,17 +1,16 @@
+//by Rainamira Azzahra
 import React, { useRef, useState } from "react";
 import { Form, Col, Row, Button, Container, Alert } from "react-bootstrap";
 import './LoginPage.css';
 import { useAuth } from "../../contexts/AuthContext";
 import { Link, useHistory } from 'react-router-dom'
 
-import { GoogleLoginButton } from "react-social-login-buttons";
-
 
 
 function LoginPage() {
   const emailRef = useRef();
   const passwordRef = useRef();
-  const { login } = useAuth();
+  const { login, loginGoogle } = useAuth();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const history = useHistory()
@@ -36,7 +35,7 @@ function LoginPage() {
         <h3>Welcome to {' '} <span className="font-weight-bold">Kalm</span></h3>
       </Row>
       <Row className="mt-2">
-            <Form className="login-form" onSubmit={handleSubmit}>
+            <Form className="login-form">
               <Form.Row>
                 <Col>
                 <Form.Group controlId="formBasicEmail">
@@ -63,15 +62,7 @@ function LoginPage() {
               </Form.Row>
               <Form.Row>
                 <Col>
-                <Button disabled={loading} className="btn-block btn-color rounded-pill" variant="" type="submit">Sign in</Button>
-                </Col>
-              </Form.Row>
-              <Form.Row>
-                <Col>
-                <Form.Group>
-                <h6 className="text-muted text-center pt-3">Or continue with your social account</h6>
-                <GoogleLoginButton className="mt-3 rounded-pill" variant="" />
-                </Form.Group>
+                <Button disabled={loading} onClick={handleSubmit} className="btn-block btn-color rounded-pill" variant="" type="submit">Sign in</Button>
                 </Col>
               </Form.Row>
               <Form.Row className="text-center mt-2">

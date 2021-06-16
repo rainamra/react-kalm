@@ -1,6 +1,7 @@
+//by Rainamira Azzahra
 import React, { useState, useEffect } from "react";
 import { Modal, Button, Col, Row } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import './TemplateRoutine.css';
 import RoutineCard from "./RoutineCard";
 import { useAuth } from "../../contexts/AuthContext"
@@ -49,12 +50,14 @@ function TemplateRoutine() {
     const [modalDuration, setModalDuration] = useState('');
     const [modalDesc, setModalDesc] = useState('');
     const [isLoaded, setIsLoaded] = useState(false);
+    const [username, setUsername] = useState("");
 
     const { currentUser } = useAuth();
     const { selectedRoutine } = useRoutine();
 
     useEffect(() => {
         setTimeout(() => {
+            fetchUser();
             fetchCustomRoutine();
             fetchTemplateRoutine();
             setIsLoaded(true)
@@ -68,6 +71,13 @@ function TemplateRoutine() {
             console.log(routineCards);
         })
     };
+
+    const fetchUser = async () => {
+          axios.get(`api/user/${currentUser.uid}`)
+          .then(res => {
+            setUsername(res.data.name);
+        })
+      }
 
     const fetchTemplateRoutine = async () => {
         axios.get(`api/template-routines`)
@@ -100,11 +110,8 @@ function TemplateRoutine() {
         </Modal.Header>
         <Modal.Body>
             <h4>{modalTitle}</h4>
-            <p>Duration: {modalDuration} minutes</p>
-            <p>Description:</p>
-            <p>
-            {modalDesc}
-            </p>
+            <p className="mt-3">Duration: {modalDuration} minutes</p>
+            <p>Description: {modalDesc}</p>
         </Modal.Body>
         <Modal.Footer>
             <Col>
@@ -149,7 +156,7 @@ function TemplateRoutine() {
     </Modal.Header>
     <Modal.Body>
         <p>Duration: {modalDuration}</p>
-        <p>Description:</p>
+        <p>Description: {modalDesc}</p>
         <ul>
             {templateRoutines.map((routine, i) => (
                  <li key={i}>{routine.activity}</li>
@@ -168,8 +175,13 @@ function TemplateRoutine() {
     return (
         <>
         {isLoaded === true ?
-        <div className="template-routine mt-5 pt-4">
+        <div className="template-routine mt-5 pt-5">
+            <div className="mb-5">
+            <h4 className="float-left mr-2">Welcome,  </h4>
+            <h6 className="font-italic pt-2">{ username}...</h6>
+            </div>
                 <h2>Night Routine Template</h2>
+                <p>We provide different kinds of night routine for you to try out!</p>
                 <div className="routineCards templates">
                 {templateCards.map((card, i) => (
                         <div key={i} className="template" onClick={() => {setTemplateModalShow(true);
@@ -206,7 +218,8 @@ function TemplateRoutine() {
                     />
                 </div>
                 <h2>Your Night Routine</h2>
-                <div className="routineCards customs">
+                <p>List of your personalized routines are here!</p>
+                <div className="routineCards customs mb-5 pb-2">
                     {routineCards.map((card, i) => (
                         <div key={i} className="custom" onClick={() => {setCustomModalShow(true);
                             setModalTitle(card.id);
@@ -227,6 +240,8 @@ function TemplateRoutine() {
                         onHide={() => setCustomModalShow(false)}
                     />
                 </div>
+                <h2>Create New Night Routine</h2>
+                <p>Start creating your night routine by clicking the picture below! </p>
                 <div className="routineCards customs">
                     <div className="custom create mb-5" onClick={() => setCreateNewModalShow(true)} >
                         <div className="image">

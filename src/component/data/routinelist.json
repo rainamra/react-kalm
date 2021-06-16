@@ -1,0 +1,30 @@
+[
+    {
+        "value":1,
+        "label":"Read a Book"
+    },
+    {
+        "value":2,
+        "label":"Take a Bath"
+    },
+    {
+        "value":3,
+        "label":"Drink a Cup of Tea"
+    },
+    {
+        "value":4,
+        "label":"Do Skincare"
+    },
+    {
+        "value":5,
+        "label":"Make a To-do List"
+    },
+    {
+        "value":6,
+        "label":"Watch an episode of Series on Netflix"
+    },
+    {
+        "value":7,
+        "label":"Snacking"
+    }
+]

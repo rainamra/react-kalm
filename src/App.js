@@ -1,3 +1,4 @@
+//by Rainamira Azzahra
 import React from "react";
 import "./App.css";
 import LandingPage from "./component/landing/LandingPage";
