@@ -37,7 +37,7 @@ At the end of the night routine, you can pick your desired calming sounds that w
 It's quite simple to use our app. No need to download or subscribe any thing. All you have to do is go to our website.
 
 ### `New User Registration`
-
+![Screen Shot 2021-06-13 at 20 08 32](https://user-images.githubusercontent.com/56628802/122749067-19e1ab00-d2b7-11eb-95a0-a79d0a6204f9.png)
 To start you will need to create an account first. Fill in the form provided. Enter your firstname, lastname, username, email, password, and password confirmation, then click `Sign Up`. After that, you will be directed immediately to the dashboard where you can see all the night routine. We also provided some template to try out. 
 
 ### `CREATE A NIGHT ROUTINE`
@@ -45,7 +45,7 @@ To start you will need to create an account first. Fill in the form provided. En
 At this point, your dashboard probably quite empty. So let's start creating a new night routine. Click on a journal picture at the bottom of the page. It will led you to a new page where you can customize your own night routine. 
 
 ### `ENTER NIGHT ROUTINE DETAILS`
-
+<img width="1680" alt="Screen Shot 2021-06-13 at 22 20 06" src="https://user-images.githubusercontent.com/56628802/122749111-2534d680-d2b7-11eb-8c6f-499151be56c7.png">
 Fill in the title of the routine and description. You could name the routine based on the events or the situation you're in. For example, it's been a busy week for you so you might want to put encouraging words in the description. After that, you could pick an image as a cover that match the routine aesthetic. Click on the `plus` button and it will show the input field for the first activity. Enter what activity you want to do as well as the duration of that activity, then click the `check` icon. It will show another text field, repeat the steps again until the fifth routine. If you're done, click `submit` and the video selection will appear. Pick one video, then click `done`. Congratulations! You just make a night routine.
 
 ### `EDIT NIGHT ROUTINE`
