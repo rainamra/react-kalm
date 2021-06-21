@@ -37,16 +37,24 @@ At the end of the night routine, you can pick your desired calming sounds that w
 It's quite simple to use our app. No need to download or subscribe any thing. All you have to do is go to our website.
 
 ### `New User Registration`
+
 ![Screen Shot 2021-06-13 at 20 08 32](https://user-images.githubusercontent.com/56628802/122749067-19e1ab00-d2b7-11eb-95a0-a79d0a6204f9.png)
+
 To start you will need to create an account first. Fill in the form provided. Enter your firstname, lastname, username, email, password, and password confirmation, then click `Sign Up`. After that, you will be directed immediately to the dashboard where you can see all the night routine. We also provided some template to try out. 
+
 
 ### `CREATE A NIGHT ROUTINE`
 
 At this point, your dashboard probably quite empty. So let's start creating a new night routine. Click on a journal picture at the bottom of the page. It will led you to a new page where you can customize your own night routine. 
 
 ### `ENTER NIGHT ROUTINE DETAILS`
+
 <img width="1680" alt="Screen Shot 2021-06-13 at 22 20 06" src="https://user-images.githubusercontent.com/56628802/122749111-2534d680-d2b7-11eb-8c6f-499151be56c7.png">
+
 Fill in the title of the routine and description. You could name the routine based on the events or the situation you're in. For example, it's been a busy week for you so you might want to put encouraging words in the description. After that, you could pick an image as a cover that match the routine aesthetic. Click on the `plus` button and it will show the input field for the first activity. Enter what activity you want to do as well as the duration of that activity, then click the `check` icon. It will show another text field, repeat the steps again until the fifth routine. If you're done, click `submit` and the video selection will appear. Pick one video, then click `done`. Congratulations! You just make a night routine.
+
+<img width="1680" alt="Screen Shot 2021-06-13 at 22 21 04" src="https://user-images.githubusercontent.com/56628802/122749412-80ff5f80-d2b7-11eb-8646-24ea6327ce5e.png">
+
 
 ### `EDIT NIGHT ROUTINE`
 
@@ -57,11 +65,19 @@ If you want to change the title, description, and the cover, might as well delet
 
 ### `START A NIGHT ROUTINE`
 
+![Screen Shot 2021-06-13 at 20 19 36](https://user-images.githubusercontent.com/56628802/122749612-bf951a00-d2b7-11eb-92c7-7c4af78d59ec.png)
+
 In order to start your routine, click the routine on the dashboard, `edit` and `start` options will appear. Choose the `start` button, it will led you to a routine page. Click on the the `ready` button, the web will render the first routine. Click `start`, then the timer will run. If something urgent you need to deal with, you can `pause` the timer and `resume` again after. Below the button you will see your next activity in the routine. When the time is up, the activity title and time will reset and put up next activity information. When the current activity is complete, a new page will appear, specifically the video page, in which you must start to rest your eyes and sleep.
+
+![Screen Shot 2021-06-14 at 11 09 57](https://user-images.githubusercontent.com/56628802/122749620-c15edd80-d2b7-11eb-8d7c-118592c2add9.png)
+
 
 ### `EDIT PROFILE`
 
+![Screen Shot 2021-06-13 at 20 16 57](https://user-images.githubusercontent.com/56628802/122749575-b3a95800-d2b7-11eb-86f0-b1936cc23b9d.png)
+
 You could edit your profile, such as your profile picture, email, and password. Click on your username on the top right of the dashboard, then a dropdown will show. Go to `profile`, there you can see your profile details and edit form. If it's filled in, you can click `update`.
+
 
 ## Design Plan
 ### `System Architecture`
@@ -81,5 +97,5 @@ SOA Architecture
 ### `Endpoint API`
 <img width="554" alt="Screen Shot 2021-06-12 at 14 27 48" src="https://user-images.githubusercontent.com/56628802/121769210-827ca980-cb8c-11eb-9ae9-bb9d3401cae4.png">
 
-### `Poster`
+## Poster
 ![kalmPoster (3)](https://user-images.githubusercontent.com/56628802/122061570-d69bbe00-ce18-11eb-8caf-adc58d079498.png)
