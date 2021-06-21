@@ -5,7 +5,7 @@ import "./RoutinePage.css";
 import { useAuth } from "../../contexts/AuthContext";
 import { useRoutine } from "../../contexts/RoutineContext";
 import { db } from "../../firebase";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 
 function LastRoutinePage() {
 
@@ -29,6 +29,7 @@ function LastRoutinePage() {
             <div style={{background:"linear-gradient(90deg, #09203F 0%, #537895 100%", height:"980px", letterSpacing:"2px"}}>
             <div className="text-center pt-5" >
             <h2 className="font-italic" style={{color: "white"}} >{videoTitle}</h2>
+            <Link href={videoLink}>Video Source</Link>
             </div>
             <ReactPlayer className="video-player mt-3"
                 onReady={() => console.log('onReady callback')}

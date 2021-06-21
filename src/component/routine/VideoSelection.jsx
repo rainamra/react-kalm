@@ -25,6 +25,7 @@ function VideoSelection({ youtubeURL, theme, description, status }) {
         <Card.Text>
             {description}
         </Card.Text>
+        <Card.Link href={youtubeURL}>Video Source</Card.Link>
         </Card.Body>
     </Card>
     </>
