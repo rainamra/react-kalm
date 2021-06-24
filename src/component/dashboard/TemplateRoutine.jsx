@@ -245,7 +245,7 @@ function TemplateRoutine() {
                 <div className="routineCards customs">
                     <div className="custom create mb-5" onClick={() => setCreateNewModalShow(true)} >
                         <div className="image">
-                            <RoutineCard image="https://i.postimg.cc/MH2SQmmk/jan-kahanek-f-VUl6kz-Iv-Lg-unsplash.jpg"/>
+                            <RoutineCard image="https://firebasestorage.googleapis.com/v0/b/kalm-react.appspot.com/o/templateImages%2Fjan-kahanek-fVUl6kzIvLg-unsplash.jpg?alt=media&token=91512402-a010-4222-976c-3505e0b2b77a"/>
                         </div>
                         <div className="middle">
                             <p>Create new</p>
