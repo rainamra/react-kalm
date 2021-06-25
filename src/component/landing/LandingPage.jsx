@@ -61,12 +61,15 @@ function LandingPage() {
       </div>
       <div id="features" className="virtual pt-5">
       <Container>
-        <Row md={2}>
-        <Col>
+        <Row>
         <h1 className="text-white p-5">What is Kalm?</h1>
-        </Col>
         </Row>
         <Row>
+          <p className="text-white font-italic pl-5">Getting enough sleep isn’t only about total hours of sleep. 
+          It’s also important to get good quality sleep on a regular schedule so you feel rested when you wake up. 
+            Unfortunately, many of us struggle with sleep deprivation or insomnia. This lead us to a reduction in sleep quality. </p>
+          <p className="text-white font-italic pl-5">Kalm wants to help you to manage your activities before going to bed by creating your own routine. In the hope you can get a better quality of sleep.
+             Curious how? Scroll down a bit and you will find the answer. </p>
         </Row>
       </Container>
       <svg height="100%" width="100%" id="svg" viewBox="0 0 1440 400" xmlns="http://www.w3.org/2000/svg" className="transition duration-300 ease-in-out delay-150">
