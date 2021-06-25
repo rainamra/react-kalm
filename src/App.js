@@ -42,7 +42,7 @@ function App() {
               <HeaderMain />
               <UpdateProfile />
             </PrivateRoute>
-            <PrivateRoute exact path="/">
+            <PrivateRoute exact path="/dashboard">
               <HeaderMain />
                 <div className="app-page">
                   <TemplateRoutine />
@@ -63,7 +63,7 @@ function App() {
             <Route path="/last-routine">
               <LastRoutinePage />
             </Route>
-            <Route path="/landingPage">
+            <Route path="/">
             <LandingPage />
             </Route>
             <Route path="/forgot-password">
